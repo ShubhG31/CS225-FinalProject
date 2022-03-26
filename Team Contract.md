@@ -21,5 +21,5 @@ However if a team member is habitually not being involved , they may be asked â€
 ## Conflict Resolution: 
 All conflicts within the team will be decided by a red hands competition. The winner will decide who was right and who was wrong (Might makes right).
 ## Signatures
-Pranshu Teckchandani (pat4), Dev Goyal (devg2), Shubh Gupta (shubhg3)
+Pranshu Teckchandani (pat4), Dev Goyal (devg2), Shubh Gupta (shubhg3), Paul Jeong (paulj3)
 
