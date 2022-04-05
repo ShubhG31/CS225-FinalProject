@@ -1,3 +1,9 @@
+### Regrade
+
+Not Yet Competent (70%)
+
+Please select a specific SCC algorithm as well as explain how you would apply it on the road network. Are the edges in road network dataset undirected or directed? If undirected, then SCC reduces to disjoint set, which is invalid as a **uncovered** graph algorithm (so we need to pick a different algorithm/problem). If directed, could you explain how to interpret directed roads?
+
 ### Grade
 
 Incomplete (0%)
