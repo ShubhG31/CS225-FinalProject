@@ -3,7 +3,7 @@
 # AIM:
 Leading question: 
 What is the shortest path between two points through a particular node?
-Given the road networks dataset of a region, We’ll convert it into a graph and then generate a general search tool to perform various kinds of operations on it including- finding the shortest path from one node to another, finding shortest path between two nodes going through n other landmarks or traverse the road network to search for a specific node or a feature. We can do so by converting a graph of nodes to a graph of its SCC instead and performing the operations on those. This will make the program run faster by reducing the input size.
+Given the road networks dataset of a region, We’ll convert it into a graph and then generate a general search tool to perform various kinds of operations on it including- finding the shortest path from one node to another, finding shortest path between two nodes going through n other landmarks or traverse the road network to search for a specific node or a feature.
  
 # DATA ACQUISITION AND PROCESSING:
 We’ll be using the California road network dataset from the following source https://www.cs.utah.edu/~lifeifei/SpatialDataset.htm.
