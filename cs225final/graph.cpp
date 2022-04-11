@@ -17,7 +17,7 @@ void Graph::makeNodeList(string file) {
 }
 
 void Graph::makeEdgeList(string file){
-    // ifstream fin(file, ios::in);
+    //ifstream fin(file, ios::in);
 
     // if (!fin.is_open()) {
     //     std::cerr << "There was a problem opening the input file!\n";
@@ -32,10 +32,10 @@ void Graph::makeEdgeList(string file){
     // }
 }
 
-void Graph::addEdge(Node node1, Node node2, double dist) {
+// void Graph::addEdge(Node node1, Node node2, double dist) {
 
-}
+// }
 
-double Graph::dist(double longitude, double latitude) {
-    return -1;
-}
+// double Graph::dist(double longitude, double latitude) {
+//     return -1;
+// }
