@@ -2,7 +2,7 @@
 
 # Meeting Times
 
-4/5 - 6p - 8pm
+4/5 - 9pm - 11pm
 
 4/10 - 7pm to 10pm
 
@@ -13,7 +13,7 @@ In addition to this, we discussed our approach towards each of our individual ta
 
 On 4/10, we started implementing the Djikstra's algorithm. In addition to that, we have also started loading the dataset into the class.
 
-
+We are currently on track and are in line with the agenda that we had set for the two weeks.
 
 # Team members contribution
 
