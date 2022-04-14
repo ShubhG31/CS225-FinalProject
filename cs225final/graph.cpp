@@ -39,3 +39,37 @@ void Graph::makeEdgeList(string file){
 // double Graph::dist(double longitude, double latitude) {
 //     return -1;
 // }
+
+vector<int> Graph::findShortestPath(int first, int second){
+    map<int,double> distances;
+    map<int,bool> visited;
+    map<int,vector<int>>paths;
+    auto cmp = [&](pair<int,double> first, pair<int,double> sec){return first.second > sec.second;};
+    priority_queue<pair<int,double>, vector<pair<int,double>>, decltype(cmp)> q(cmp);
+    q.push(pair<int,double>{first,0});
+    visited[first] = true;
+    paths[first] = vector<int>();
+    while (!q.empty()){
+        pair<int,double> top = q.top();
+        q.pop();
+        auto edges = adjacent(top.first);
+        // i.first is the adjacent node and i.second is the edge length(not the distance from the root)
+        for(pair<int,double> i : edges){
+            if(!visited[i.first]){
+                distances[i.first] = distances[top.first] + i.second;
+                q.push(i);
+                visited[i.first] = true;
+                paths[i.first] = paths[top.first];
+                paths[i.first].push_back(top.first);
+            }
+            if(i.first == second){
+                return paths[i.first];
+            }
+        }
+    }
+    throw runtime_error("not found");
+}
+
+vector<pair<int,double>> Graph::adjacent(int node){
+    return edgelist[node];
+}
