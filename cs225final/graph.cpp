@@ -13,23 +13,40 @@ void Graph::makeNodeList(string file) {
         fin >> node.id;
         fin >> node.longitude;
         fin >> node.latitude;
+        nodeList.push_back(node);
     }
 }
 
 void Graph::makeEdgeList(string file){
-    //ifstream fin(file, ios::in);
+    ifstream fin(file, ios::in);
 
-    // if (!fin.is_open()) {
-    //     std::cerr << "There was a problem opening the input file!\n";
-    //     exit(1);//exit or do additional error checking
-    // }
+    if (!fin.is_open()) {
+        std::cerr << "There was a problem opening the input file!\n";
+        exit(1);//exit or do additional error checking
+    }
 
-    // while (!fin.eof()) {
-    //     Node node;
-    //     fin >> node.id;
-    //     fin >> node.longitude;
-    //     fin >> node.latitude;
-    // }
+    while (!fin.eof()) {
+        int garbage;
+        fin >> garbage;
+        int firstnode;
+        fin>> firstnode;
+        int secondnode;
+        fin>>secondnode;
+        double distance;
+        fin >> distance;
+        
+        vector<pair<int,double> > edges;
+        if(edgelist.find(firstnode) != edgelist.end()){
+            edges=edgelist[firstnode];
+        }
+        edges.push_back(make_pair(secondnode,distance));
+        edgelist[firstnode] = edges;
+        vector<pair<int,double> > temp= edgelist[firstnode];
+        // std::cout << temp[0].first << std::endl;
+
+    }
+    vector<pair<int,double> > temp= edgelist[0];
+    std::cout << temp[0].first << std::endl;
 }
 
 // void Graph::addEdge(Node node1, Node node2, double dist) {
@@ -70,6 +87,6 @@ vector<int> Graph::findShortestPath(int first, int second){
     throw runtime_error("not found");
 }
 
-vector<pair<int,double>> Graph::adjacent(int node){
+vector<pair<int, double>> Graph::adjacent(int node){
     return edgelist[node];
 }

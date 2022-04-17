@@ -12,8 +12,8 @@ class Graph {
     public:
         struct Node {
         int id;
-        double longitude;
-        double latitude;
+        long double longitude;
+        long double latitude;
     };
 
         void makeNodeList(string file);
@@ -21,8 +21,10 @@ class Graph {
         void addEdge(Node node1, Node node2, double dist);
         double dist(double longitude, double latitude);
         vector<int> findShortestPath(int first, int second);
-        vector<pair<int,double>> adjacent(int node);
-    private:
-        map<int, vector<pair<int,double>>> edgelist;
+        vector<pair<int,double> > adjacent(int node);
         vector<Node> nodeList;
+        map<int, vector<pair<int,double> > > edgelist;
+    private:
+        // map<int, vector<pair<int,double>>> edgelist;
+        // vector<Node> nodeList;
 };
