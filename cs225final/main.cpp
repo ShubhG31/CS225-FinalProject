@@ -4,20 +4,19 @@ using namespace std;
 int main(){
     Graph h;
 
-    // h.makeNodeList("nodedataset.csv");
+    // Uncomment lines 8-12 to see the nodedataset being parsed
+    h.makeNodeList("nodedataset.csv");
 
-    // for(auto i: h.edgelist){
-    //     std::cout<< i <<std::endl;
-    // }
-    // cout<< h.nodeList[0].latitude << endl;
-    // for (std::pair<std::string, int> element : mapOfWordCount) {
-    //     // Accessing KEY from element
-    //     std::string word = element.first;
-    //     // Accessing VALUE from element.
-    //     int count = element.second;
-    //     std::cout << word << " :: " << count << std::endl;
-    // }
-    h.makeEdgeList("nodedataset.csv");
-    // std::cout << h.edgelist[0].at() <<std::endl;
+    for(auto i: h.nodeList){
+        std::cout<< i.id << " " << i.longitude << " " << i.latitude <<  std::endl;
+    }
+
+    // Uncomment lines 15-20 to see the edgedataset being parsed
+    h.makeEdgeList("edgedataset.csv");
+    for(auto j: h.edgelist){
+        for(auto i: j.second){
+            cout<<i.first << " " << i.second <<endl;
+        }
+    }
     return 0;
 }

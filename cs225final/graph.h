@@ -21,9 +21,9 @@ class Graph {
         void addEdge(Node node1, Node node2, double dist);
         double dist(double longitude, double latitude);
         vector<int> findShortestPath(int first, int second);
-        vector<pair<int,double> > adjacent(int node);
+        vector<pair<int,long double> > adjacent(int node);
         vector<Node> nodeList;
-        map<int, vector<pair<int,double> > > edgelist;
+        map<int, vector<pair<int,long double> > > edgelist;
     private:
         // map<int, vector<pair<int,double>>> edgelist;
         // vector<Node> nodeList;
