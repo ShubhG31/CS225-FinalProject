@@ -15,7 +15,7 @@ class Graph {
         long double longitude;
         long double latitude;
     };
-
+        Graph(string node_data, string edge_data);
         void makeNodeList(string file);
         void makeEdgeList(string file);
         void addEdge(Node node1, Node node2, double dist);

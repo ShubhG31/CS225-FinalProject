@@ -1,5 +1,9 @@
 #include "graph.h"
 
+Graph::Graph(string node_data, string edge_data){
+    makeNodeList(node_data);
+    makeEdgeList(edge_data);
+}
 void Graph::makeNodeList(string file) {
     ifstream fin(file, ios::in);
 
