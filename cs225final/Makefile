@@ -1,8 +1,9 @@
-CXX=clang++
-INCLUDES=-Igraph.h
-CXXEXTRAS=-Wall -Werror -pedantic
-CXXFLAGS= -std=c++2a -stdlib=libc++ -c -g -O0 -Wall -Wextra -pedantic
-LDFLAGS = -std=c++2a -stdlib=libc++ -lc++abi -lm
+LD = clang++
+CXX = clang++
+INCLUDES = -Igraph.h
+CXXEXTRAS = -Wall -Werror -pedantic
+CXXFLAGS = -std=c++1y -stdlib=libc++ -c -g -O0 -Wall -Wextra -pedantic
+LDFLAGS = -std=c++1y -stdlib=libc++ -lc++abi -lm
 
 exec: final
 #tests: bin/tests
@@ -22,6 +23,6 @@ tests.o : tests.cpp catch/catch.hpp
 .DEFAULT_GOAL := final
 .PHONY: clean final tests
 
-clean: rm final
+clean:rm -rf *.o *.d rm -f final rm -f test
 
 
