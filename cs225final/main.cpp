@@ -2,9 +2,9 @@
 #include <iostream>
 using namespace std;
 int main(){
-    string node_data = "nodedataset.csv";
-    string edge_data = "edgedataset.csv";
-    Graph h("nodedataset.csv","edgedataset.csv");
+    string node_data = "node.csv";
+    string edge_data = "edge.csv";
+    Graph h(node_data, edge_data);
 
     // Uncomment lines 8-12 to see the nodedataset being parsed
     //h.makeNodeList("nodedataset.csv");
@@ -20,7 +20,7 @@ int main(){
     //         cout<<i.first << " " << i.second <<endl;
     //     }
     // }
-    vector<int> path = h.findShortestPath(5,298);
+    vector<int> path = h.findShortestPath(0,4);
     for(auto i : path){
         std::cout << i << std::endl;
     }
