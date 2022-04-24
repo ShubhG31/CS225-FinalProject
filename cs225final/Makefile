@@ -12,8 +12,8 @@ exec: final
 final: graph.cpp main.cpp
 	$(CXX) $(CXXFLAGS2) $(CXXEXTRAS) $(INCLUDES) $^ -o $@
 
-test: catchmain.o tests.o
-	$(LD) catchmain.o tests.o $(LDFLAGS) -o test
+test: graph.o catchmain.o tests.o
+	$(LD) graph.o catchmain.o tests.o $(LDFLAGS) -o test
 
 catchmain.o : catch/catchmain.cpp catch/catch.hpp
 	$(CXX) $(CXXFLAGS) catch/catchmain.cpp
@@ -21,7 +21,8 @@ catchmain.o : catch/catchmain.cpp catch/catch.hpp
 tests.o : tests.cpp catch/catch.hpp
 	$(CXX) $(CXXFLAGS) tests.cpp
 
-final.o : 
+graph.o : graph.cpp
+	$(CXX) $(CXXFLAGS) $(INCLUDES) $^ -o $@
 
 .DEFAULT_GOAL := final
 .PHONY: clean final tests
