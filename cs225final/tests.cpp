@@ -5,6 +5,8 @@
 
 using namespace std;
 
+long double error = 0.00001;
+
 TEST_CASE("Test hello world", "") {
   string node_data = "CSV_tests/node.csv";
   string edge_data = "CSV_tests/edge.csv";
@@ -17,15 +19,10 @@ TEST_CASE("Node Data Parsing", "") {
   string node_data = "CSV_tests/node.csv";
   string edge_data = "CSV_tests/edge.csv";
   Graph h(node_data, edge_data);
-  cout << h.nodeList[0].id << ' ' << h.nodeList[0].longitude << ' ' << h.nodeList[0].latitude <<endl;
   vector<Graph::Node> sol{Graph::Node{0,-0.5,-0.08},Graph::Node{1,-10,0},Graph::Node{2 ,0, 0},Graph::Node{3, 0 ,0},Graph::Node{4,0 ,0}};
-    cout << sol[0].id << endl;
   for(unsigned long i =0; i<sol.size();i++){
     REQUIRE(sol[i].id == h.nodeList[i].id);
-    REQUIRE(sol[i].latitude == h.nodeList[i].latitude);
-    REQUIRE(sol[i].longitude == h.nodeList[i].longitude);
+    REQUIRE(fabs((long double)sol[i].latitude - (long double)h.nodeList[i].latitude) < error);
+    REQUIRE(fabs((long double)sol[i].longitude - (long double)h.nodeList[i].longitude) < error);
   }
-  // vector<Graph::Node> sol{Graph::Node{0,-0.5,-0.08},Graph::Node{1,-10,0},Graph::Node{2 ,0, 0},Graph::Node{3, 0 ,0},Graph::Node{4,0 ,0}};
-  cout << sol[0].id << endl;
-  REQUIRE(sol== h.nodeList);
 }
