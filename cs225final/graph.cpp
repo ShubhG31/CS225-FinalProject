@@ -4,6 +4,10 @@ Graph::Graph(string node_data, string edge_data){
     makeNodeList(node_data);
     makeEdgeList(edge_data);
 }
+bool operator==(Graph::Node a, Graph::Node b){
+    return (b.id==a.id) && (b.longitude == a.longitude) && (b.latitude == a.latitude);
+}   
+
 void Graph::makeNodeList(string file) {
     ifstream fin(file, ios::in);
 
@@ -13,7 +17,7 @@ void Graph::makeNodeList(string file) {
     }
 
     while (!fin.eof()) {
-        Node node;
+        Graph::Node node;
         fin >> node.id;
         fin >> node.longitude;
         fin >> node.latitude;

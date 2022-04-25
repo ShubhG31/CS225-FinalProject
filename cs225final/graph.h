@@ -28,3 +28,4 @@ class Graph {
         // map<int, vector<pair<int,double>>> edgelist;
         // vector<Node> nodeList;
 };
+bool operator==(Graph::Node a, Graph::Node b);
