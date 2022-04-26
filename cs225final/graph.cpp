@@ -50,6 +50,12 @@ void Graph::makeEdgeList(string file){
         }
         edges.push_back(make_pair(secondnode,distance));
         edgelist[firstnode] = edges;
+        vector<pair<int,long double> > edges2;
+        if(edgelist.find(secondnode) != edgelist.end()){
+            edges2=edgelist[secondnode];
+        }
+        edges2.push_back(make_pair(firstnode,distance));
+        edgelist[secondnode] = edges2;
         // vector<pair<int,double> > temp= edgelist[firstnode];
         // std::cout << temp[0].first << std::endl;
 
@@ -71,23 +77,24 @@ vector<int> Graph::findShortestPath(int first, int second){
     auto cmp = [&](pair<int,double> first, pair<int,double> sec){return first.second > sec.second;};
     priority_queue<pair<int,double>, vector<pair<int,double>>, decltype(cmp)> q(cmp);
     q.push(pair<int,double>{first,0});
-    visited[first] = true;
     paths[first] = vector<int>();
     while (!q.empty()){
         pair<int,double> top = q.top();
+        if(top.first == second){
+            return paths[top.first];
+        }
+        cout << top.first << endl;
+        visited[top.first] = true;
         q.pop();
         auto edges = adjacent(top.first);
         // i.first is the adjacent node and i.second is the edge length(not the distance from the root)
         for(pair<int,double> i : edges){
+            cout << top.first << " adjacent to " << i.first << " at distance " << i.second <<endl;
             if(!visited[i.first]){
                 distances[i.first] = distances[top.first] + i.second;
                 q.push(i);
-                visited[i.first] = true;
                 paths[i.first] = paths[top.first];
                 paths[i.first].push_back(top.first);
-            }
-            if(i.first == second){
-                return paths[i.first];
             }
         }
     }

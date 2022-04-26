@@ -33,11 +33,15 @@ TEST_CASE("Edge Data Parsing", ""){
   Graph h(node_data, edge_data);
   vector<pair<int,long double>> r0;
   r0.push_back({1,1});
+  r0.push_back({4,100});
   vector<pair<int,long double>> r1;
+  r1.push_back({0,1});
   r1.push_back({2,1});
   vector<pair<int,long double>> r2;
+  r2.push_back({1,1});
   r2.push_back({3,1});
   vector<pair<int,long double>> r3;
+  r3.push_back({2,1});
   r3.push_back({4,1});
   vector<pair<int,long double>> r4;
   r4.push_back({0,100});
@@ -50,6 +54,7 @@ TEST_CASE("Edge Data Parsing", ""){
   cout << sol.size() <<endl;
   for(unsigned i =0; i < sol.size();i++){
     for(unsigned j = 0; j < sol.at(i).size(); ++j){
+      std::cout<< i << j <<std::endl;
       REQUIRE(sol.at(i).at(j).first == h.edgelist.at(i).at(j).first);
       REQUIRE(sol.at(i).at(j).second == h.edgelist.at(i).at(j).second);
     }
