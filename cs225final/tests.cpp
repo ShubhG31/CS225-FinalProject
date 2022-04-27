@@ -7,12 +7,26 @@ using namespace std;
 
 long double error = 0.00001;
 
-TEST_CASE("Test Shortest Path", "") {
+TEST_CASE("Test Shortest Path", "djikstra") {
   string node_data = "CSV_tests/node.csv";
   string edge_data = "CSV_tests/edge.csv";
   Graph h(node_data, edge_data);
   vector<int> sol{0,1,2,3};
   REQUIRE(sol == h.findShortestPath(0,4));
+}
+
+TEST_CASE("Test Shortest Path II", "djikstra"){
+  string node_data = "CSV_tests/node.csv";
+  string edge_data = "CSV_tests/edge2.csv";
+  Graph h(node_data, edge_data);
+  vector<int>sol{0};
+  REQUIRE(sol == h.findShortestPath(0,2));
+  try{
+    h.findShortestPath(0,4);
+  } 
+  catch (runtime_error e){
+    REQUIRE(1+1 == 2);
+  }
 }
 
 TEST_CASE("Node Data Parsing", "") {
@@ -44,6 +58,7 @@ TEST_CASE("Edge Data Parsing", ""){
   r3.push_back({2,1});
   r3.push_back({4,1});
   vector<pair<int,long double>> r4;
+  r4.push_back({3,1});
   r4.push_back({0,100});
   map<int, vector<pair<int,long double>>> sol;
   sol[0] = r0;
@@ -54,9 +69,10 @@ TEST_CASE("Edge Data Parsing", ""){
   cout << sol.size() <<endl;
   for(unsigned i =0; i < sol.size();i++){
     for(unsigned j = 0; j < sol.at(i).size(); ++j){
-      std::cout<< i << j <<std::endl;
       REQUIRE(sol.at(i).at(j).first == h.edgelist.at(i).at(j).first);
       REQUIRE(sol.at(i).at(j).second == h.edgelist.at(i).at(j).second);
     }
   }
 }
+
+

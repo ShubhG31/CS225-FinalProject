@@ -84,17 +84,19 @@ vector<int> Graph::findShortestPath(int first, int second){
             return paths[top.first];
         }
         cout << top.first << endl;
-        visited[top.first] = true;
         q.pop();
+        visited[top.first] = true;
         auto edges = adjacent(top.first);
         // i.first is the adjacent node and i.second is the edge length(not the distance from the root)
         for(pair<int,double> i : edges){
-            cout << top.first << " adjacent to " << i.first << " at distance " << i.second <<endl;
+            // cout << top.first << " adjacent to " << i.first << " at distance " << i.second <<endl;
             if(!visited[i.first]){
-                distances[i.first] = distances[top.first] + i.second;
-                q.push(i);
-                paths[i.first] = paths[top.first];
-                paths[i.first].push_back(top.first);
+                if(distances[top.first] + i.second < distances[i.first] || distances[i.first] == 0){
+                    distances[i.first] = distances[top.first] + i.second;
+                    q.push(i);
+                    paths[i.first] = paths[top.first];
+                    paths[i.first].push_back(top.first);
+                }
             }
         }
     }
