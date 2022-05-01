@@ -3,10 +3,21 @@
 Graph::Graph(string node_data, string edge_data){
     makeNodeList(node_data);
     makeEdgeList(edge_data);
+
+}
+Graph::Graph(string node_data, string edge_data, string file){
+    makeNodeList(node_data);
+    makeEdgeList(edge_data);
+    base->readFromFile(file);
 }
 bool operator==(Graph::Node a, Graph::Node b){
     return (b.id==a.id) && (b.longitude == a.longitude) && (b.latitude == a.latitude);
 }   
+
+void Graph::read(string filename){
+
+    base->readFromFile(filename);
+}
 
 void Graph::makeNodeList(string file) {
     ifstream fin(file, ios::in);
@@ -83,7 +94,6 @@ vector<int> Graph::findShortestPath(int first, int second){
         if(top.first == second){
             return paths[top.first];
         }
-        cout << top.first << endl;
         q.pop();
         visited[top.first] = true;
         auto edges = adjacent(top.first);
@@ -105,4 +115,19 @@ vector<int> Graph::findShortestPath(int first, int second){
 
 vector<pair<int,long double>> Graph::adjacent(int node){
     return edgelist[node];
+}
+
+Image * Graph::draw(vector<Graph::Node> nodes){
+
+    // Node from = nodes[0];
+    // long double x = nodes[0].longitude;
+    // long double y = nodes[0].latitude;
+    // for (size_t i = 1; i < nodes.size(); i++)
+    // {
+    //     Node to = nodes[i];
+
+    // }
+    
+        
+    return base;
 }
