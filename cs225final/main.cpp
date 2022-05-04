@@ -21,8 +21,13 @@ int main(){
     //         cout<<i.first << " " << i.second <<endl;
     //     }
     // }
+    vector<int> path = h.findShortestPath(5079,5150);
+    vector<Graph::Node> p = h.convert(path);
+    for(int i : path){
+        cout << i <<endl;
+    }
     Image* visual = h.drawBase();
-    visual = h.drawConnection(h.nodeList[12], h.nodeList[8]);
+    visual = h.draw(p);
     visual->writeToFile("myfile.png");
 
 

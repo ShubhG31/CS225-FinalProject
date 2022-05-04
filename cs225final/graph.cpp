@@ -141,45 +141,16 @@ vector<pair<int,long double>> Graph::adjacent(int node){
 
 Image * Graph::draw(vector<Graph::Node> nodes){
 
-    
-    Image* to_return = base;
-    // to_return->scale(2);
-    // unsigned height = to_return->height();
-    // unsigned width = to_return->width();
-    // double w_ratio = width/10000;
-    // double h_ratio = height/10000;
-    // Node from = nodes[0];
-    // for (size_t i = 1; i < nodes.size(); i++)
-    // {
-    //     double x = from.longitude * w_ratio;
-    //     double y = from.latitude * h_ratio;
-    //     Node to = nodes[i];
-    //     double a = to.longitude * w_ratio;
-    //     double b = to.latitude * h_ratio;
-    //     double slope = (b-y)/(a-x);
-    //     int diff = (x < a) ? 1 : -1;
-    //     if(x == a){
-    //         diff = 0;
-    //     }
-    //     int nd = (y < b) ? 1 : -1;
-    //     cout << "hello" <<endl;
-    //     while(abs(x) < abs(a)){
-    //         cout<< x << ' ' << y <<endl;
-    //         cs225::HSLAPixel& pix = to_return->getPixel((unsigned) x, (unsigned) y);
-    //         pix.h = 0;
-    //         pix.a = 1;
-    //         pix.s = 1;
-    //         pix.l = 0.5;
-    //         x += diff;
-    //         if(diff){
-    //             y+= slope*(x-a);
-    //         }else{
-    //             y += nd;
-    //         }
-    //     }
-    //     from = to;
-    // }   
-    return to_return;
+    Node from = nodes[0];
+    for (size_t i = 1; i < nodes.size(); i++)
+    {
+        
+        Node to = nodes[i];
+        cout << to.id << from.id <<endl;
+        drawConnection(from,to);
+        from = to;
+    }   
+    return base;
 }
 
 
@@ -205,7 +176,7 @@ Image* Graph::drawBase(){
     return base;
 }
 
-Image * Graph::drawConnection(Node from, Node to) {
+void Graph::drawConnection(Node from, Node to) {
     
         cs225::HSLAPixel green (120,1,.5, 1);
         cs225::HSLAPixel red (0,1,.5, 1);
@@ -214,13 +185,13 @@ Image * Graph::drawConnection(Node from, Node to) {
         double factor_X = (double)width_ / 10000;
         double factor_Y = (double)height_ / 10000;
 
-        int y1 = round(from.latitude * factor_Y); //137
-        int x1 = round(from.longitude * factor_X); //94
-        int y2 = round(to.latitude * factor_Y); // 138
-        int x2 = round(to.longitude * factor_X); // 95
+        int y1 = round(from.latitude * factor_Y); 
+        int x1 = round(from.longitude * factor_X); 
+        int y2 = round(to.latitude * factor_Y); 
+        int x2 = round(to.longitude * factor_X); 
         int dx = x2 - x1;
         int dy = y2 - y1;
-        cout << dy << ", " << dx << endl;
+        // cout << dy << ", " << dx << endl;
         if (abs(dy) > abs(dx)) {
             int i1 = 2 * abs(dx);
             int i2 = i1 - 2 * abs(dy);
@@ -245,7 +216,7 @@ Image * Graph::drawConnection(Node from, Node to) {
                         d += i2;
                     }
                 }
-                cout << i1 << ", " << i2 << ", " << d << endl;
+                // cout << i1 << ", " << i2 << ", " << d << endl;
             }
         } else if (abs(dy) < abs(dx)) {
             int i1 = 2 * abs(dy);
@@ -263,7 +234,7 @@ Image * Graph::drawConnection(Node from, Node to) {
                     d += i1;
                 } else {
                     if (dy/dx > 0) {
-                        cout << __LINE__ << endl;
+                        // cout << __LINE__ << endl;
                         y++;
                         base->getPixel(x, y) = green;
                         d += i2;
@@ -279,7 +250,7 @@ Image * Graph::drawConnection(Node from, Node to) {
             int y = y1;
 
             while (x <= x2) {
-                cout << __LINE__ << endl;
+                // cout << __LINE__ << endl;
                 base->getPixel(x, y) = green;
                 x++;
                 y++;
@@ -287,6 +258,5 @@ Image * Graph::drawConnection(Node from, Node to) {
         }
         base->getPixel(x1, y1) = red;
         base->getPixel(x2, y2) = red;
-        return base;
 }
 
