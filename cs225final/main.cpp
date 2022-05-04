@@ -22,6 +22,9 @@ int main(){
     //     }
     // }
     Image* visual = h.drawBase();
+    visual = h.drawConnection(h.nodeList[12], h.nodeList[8]);
     visual->writeToFile("myfile.png");
+
+
     return 0;
 }

@@ -7,6 +7,15 @@ Graph::Graph(string node_data, string edge_data){
     width_ = 500;
     base = new Image();
     base->resize(width_,height_);
+    for(unsigned x = 0; x < width_; ++x){
+        for (unsigned y = 0; y < height_; ++y){
+            cs225::HSLAPixel& pix = base->getPixel(x,y);
+            pix.h = 0;
+            pix.l = 1;
+            pix.a = 1;
+            pix.s = 0;
+        }
+    }
 
 }
 Graph::Graph(string node_data, string edge_data, string file){
@@ -186,15 +195,6 @@ vector<Graph::Node> Graph::convert(vector<int> vect){
 Image* Graph::drawBase(){
     double factor_X = (double)width_ / 10000;
     double factor_Y = (double)height_ / 10000;
-    for(unsigned x = 0; x < width_; ++x){
-        for (unsigned y = 0; y < height_; ++y){
-            cs225::HSLAPixel& pix = base->getPixel(x,y);
-            pix.h = 0;
-            pix.l = 1;
-            pix.a = 1;
-            pix.s = 0;
-        }
-    }
     for(Node n : nodeList){
         cs225::HSLAPixel& pix = base->getPixel(round(n.longitude*factor_X),round(n.latitude*factor_Y));
         pix.h = 0;
@@ -203,5 +203,90 @@ Image* Graph::drawBase(){
         pix.s = 0;
     }
     return base;
+}
+
+Image * Graph::drawConnection(Node from, Node to) {
+    
+        cs225::HSLAPixel green (120,1,.5, 1);
+        cs225::HSLAPixel red (0,1,.5, 1);
+
+
+        double factor_X = (double)width_ / 10000;
+        double factor_Y = (double)height_ / 10000;
+
+        int y1 = round(from.latitude * factor_Y); //137
+        int x1 = round(from.longitude * factor_X); //94
+        int y2 = round(to.latitude * factor_Y); // 138
+        int x2 = round(to.longitude * factor_X); // 95
+        int dx = x2 - x1;
+        int dy = y2 - y1;
+        cout << dy << ", " << dx << endl;
+        if (abs(dy) > abs(dx)) {
+            int i1 = 2 * abs(dx);
+            int i2 = i1 - 2 * abs(dy);
+
+            int d = i1 - abs(dy);
+            int x = y1 < y2 ? x1 : x2;
+            int y = min(y1,y2);
+
+            while (y < max(y1,y2)) {
+                y++;
+                if (d < 0) {
+                    base->getPixel(x, y) = green;
+                    d += i1;
+                } else {
+                    if (dy/dx > 0) {
+                        x++;
+                        base->getPixel(x, y) = green;
+                        d += i2;
+                    } else {
+                        x--;
+                        base->getPixel(x, y) = green;
+                        d += i2;
+                    }
+                }
+                cout << i1 << ", " << i2 << ", " << d << endl;
+            }
+        } else if (abs(dy) < abs(dx)) {
+            int i1 = 2 * abs(dy);
+          
+            int i2 = i1 - 2 * abs(dx);
+
+            int d = i1 - abs(dx);
+            int y = x1 < x2 ? y1 : y2;
+            int x = min(x1,x2);
+
+            while (x < max(x1,x2)) {
+                x++;
+                if (d < 0) {
+                    base->getPixel(x, y) = green;
+                    d += i1;
+                } else {
+                    if (dy/dx > 0) {
+                        cout << __LINE__ << endl;
+                        y++;
+                        base->getPixel(x, y) = green;
+                        d += i2;
+                    } else {
+                        y--;
+                        base->getPixel(x, y) = green;
+                        d += i2;
+                    }
+                }
+            }
+        } else {
+            int x = x1;
+            int y = y1;
+
+            while (x <= x2) {
+                cout << __LINE__ << endl;
+                base->getPixel(x, y) = green;
+                x++;
+                y++;
+            }
+        }
+        base->getPixel(x1, y1) = red;
+        base->getPixel(x2, y2) = red;
+        return base;
 }
 
