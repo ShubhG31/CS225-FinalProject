@@ -1,16 +1,28 @@
 #include "graph.h"
-
+#include <cmath>
 Graph::Graph(string node_data, string edge_data){
     makeNodeList(node_data);
     makeEdgeList(edge_data);
+    height_ = 500;
+    width_ = 500;
+    base = new Image();
+    base->resize(width_,height_);
 
 }
 Graph::Graph(string node_data, string edge_data, string file){
     makeNodeList(node_data);
     makeEdgeList(edge_data);
+    base = new Image();
     base->readFromFile(file);
+    height_ = base->height();
+    width_ = base->width();
 }
-bool operator==(Graph::Node a, Graph::Node b){
+
+Graph::~Graph(){
+    delete base;
+}
+
+bool operator==(const Graph::Node& a, const Graph::Node& b){
     return (b.id==a.id) && (b.longitude == a.longitude) && (b.latitude == a.latitude);
 }   
 
@@ -92,6 +104,7 @@ vector<int> Graph::findShortestPath(int first, int second){
     while (!q.empty()){
         pair<int,double> top = q.top();
         if(top.first == second){
+            paths[top.first].push_back(second);
             return paths[top.first];
         }
         q.pop();
@@ -119,15 +132,76 @@ vector<pair<int,long double>> Graph::adjacent(int node){
 
 Image * Graph::draw(vector<Graph::Node> nodes){
 
+    
+    Image* to_return = base;
+    // to_return->scale(2);
+    // unsigned height = to_return->height();
+    // unsigned width = to_return->width();
+    // double w_ratio = width/10000;
+    // double h_ratio = height/10000;
     // Node from = nodes[0];
-    // long double x = nodes[0].longitude;
-    // long double y = nodes[0].latitude;
     // for (size_t i = 1; i < nodes.size(); i++)
     // {
+    //     double x = from.longitude * w_ratio;
+    //     double y = from.latitude * h_ratio;
     //     Node to = nodes[i];
+    //     double a = to.longitude * w_ratio;
+    //     double b = to.latitude * h_ratio;
+    //     double slope = (b-y)/(a-x);
+    //     int diff = (x < a) ? 1 : -1;
+    //     if(x == a){
+    //         diff = 0;
+    //     }
+    //     int nd = (y < b) ? 1 : -1;
+    //     cout << "hello" <<endl;
+    //     while(abs(x) < abs(a)){
+    //         cout<< x << ' ' << y <<endl;
+    //         cs225::HSLAPixel& pix = to_return->getPixel((unsigned) x, (unsigned) y);
+    //         pix.h = 0;
+    //         pix.a = 1;
+    //         pix.s = 1;
+    //         pix.l = 0.5;
+    //         x += diff;
+    //         if(diff){
+    //             y+= slope*(x-a);
+    //         }else{
+    //             y += nd;
+    //         }
+    //     }
+    //     from = to;
+    // }   
+    return to_return;
+}
 
-    // }
-    
-        
+
+
+vector<Graph::Node> Graph::convert(vector<int> vect){
+    vector<Node> to_return;
+    for(int i : vect){
+        to_return.push_back(nodeList[i]);
+    }
+    return to_return;
+}
+
+Image* Graph::drawBase(){
+    double factor_X = (double)width_ / 10000;
+    double factor_Y = (double)height_ / 10000;
+    for(unsigned x = 0; x < width_; ++x){
+        for (unsigned y = 0; y < height_; ++y){
+            cs225::HSLAPixel& pix = base->getPixel(x,y);
+            pix.h = 0;
+            pix.l = 1;
+            pix.a = 1;
+            pix.s = 0;
+        }
+    }
+    for(Node n : nodeList){
+        cs225::HSLAPixel& pix = base->getPixel(round(n.longitude*factor_X),round(n.latitude*factor_Y));
+        pix.h = 0;
+        pix.l = 0;
+        pix.a = 0;
+        pix.s = 0;
+    }
     return base;
 }
+

@@ -2,6 +2,7 @@
 #include <vector>
 #include <fstream>
 #include <iostream>
+#include <algorithm>
 #include <map>
 #include <queue>
 #include <exception>
@@ -19,6 +20,7 @@ class Graph {
     };
         Graph(string node_data, string edge_data);
         Graph(string node_data, string edge_data, string file);
+        ~Graph();
         void makeNodeList(string file);
         void makeEdgeList(string file);
         void addEdge(Node node1, Node node2, double dist);
@@ -27,14 +29,19 @@ class Graph {
         vector<pair<int,long double> > adjacent(int node);
         Image * draw(vector<Node> nodes);
         void read(string filename);
+        vector<Node> convert(vector<int> vect);
+        Image* drawBase();
+
         //move to private once testing is completed
         long double x_inc = 0.05715722810;
 
         vector<Node> nodeList;
         map<int, vector<pair<int,long double> > > edgelist;
+        unsigned width_;
+        unsigned height_;
         Image* base;
     private:
         // map<int, vector<pair<int,double>>> edgelist;
         // vector<Node> nodeList;
 };
-bool operator==(Graph::Node a, Graph::Node b);
+bool operator==(const Graph::Node& a, const Graph::Node& b);

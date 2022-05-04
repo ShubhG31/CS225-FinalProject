@@ -11,7 +11,7 @@ TEST_CASE("Test Shortest Path", "djikstra") {
   string node_data = "CSV_tests/node.csv";
   string edge_data = "CSV_tests/edge.csv";
   Graph h(node_data, edge_data);
-  vector<int> sol{0,1,2,3};
+  vector<int> sol{0,1,2,3,4};
   REQUIRE(sol == h.findShortestPath(0,4));
 }
 
@@ -19,7 +19,7 @@ TEST_CASE("Test Shortest Path II", "djikstra"){
   string node_data = "CSV_tests/node.csv";
   string edge_data = "CSV_tests/edge2.csv";
   Graph h(node_data, edge_data);
-  vector<int>sol{0};
+  vector<int>sol{0,4};
   REQUIRE(sol == h.findShortestPath(0,2));
   try{
     h.findShortestPath(0,4);
