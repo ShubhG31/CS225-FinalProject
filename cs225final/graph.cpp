@@ -15,6 +15,12 @@ Graph::Graph(string node_data, string edge_data){
             pix.l = 1;
             pix.a = 1;
             pix.s = 0;
+            if((x == width_-451 && y < 451) || (y == 451 && x >= width_-451)){
+                pix.h = 0;
+                pix.l = 0;
+                pix.a = 1;
+                pix.s = 0;
+            }
         }
     }
 
@@ -358,19 +364,17 @@ void Graph::zoomIn(Graph::Node start , Graph::Node end){
     int zy1 = (y1 - box_y_start) * 450/box_height;
     int zx2 = width_ - (box_x_end - x2) * 450/box_width;
     int zy2 = (y2 - box_y_start) * 450/box_height;
-
+    cout << zx1 << " " << zx2 << " " << zy1 << " "<< zy2 << endl;
     Node a;
-    a.id = 1;
-    a.longitude = zx1;
-    a.latitude = zy1;
+    // a.id = 1;
+    a.longitude = zx1/factor_X;
+    a.latitude = zy1/factor_Y;
 
     Node b;
-    b.id = 2;
-    b.longitude = zx2;
-    b.latitude = zy2;
+    // b.id = 2;
+    b.longitude = zx2/factor_X;
+    b.latitude = zy2/factor_Y;
 
     drawConnection(start, a);
     drawConnection(end, b);
-
-    
 }
