@@ -159,7 +159,7 @@ Image * Graph::draw(vector<Graph::Node> nodes){
         from = to;
     }
     if(distance < 500){
-        zoomIn(nodes[0], nodes[1]);        
+        zoomIn(nodes[0], nodes[nodes.size()-1]);        
     }   
     
     return base;
@@ -321,19 +321,20 @@ void Graph::zoomIn(Graph::Node start , Graph::Node end){
     unsigned max_x = max(x1, x2);
     unsigned min_y = min(y1, y2);
     unsigned max_y = max(y1,y2);
-    unsigned box_x_start = min_x >= 15 ?min_x - 15 : 0;
-    unsigned box_y_start = min_y >= 15 ? min_y - 15 : 0;
-    unsigned box_x_end = max_x < width_ - 15 ? max_x + 15 : width_;
-    unsigned box_y_end = max_y < height_ - 15 ? max_y + 15 : height_;
+    unsigned box_x_start = min_x >= 150 ?min_x - 150 : 0;
+    unsigned box_y_start = min_y >= 150 ? min_y - 150 : 0;
+    unsigned box_x_end = max_x < width_ - 150 ? max_x + 150 : width_ - 1;
+    unsigned box_y_end = max_y < height_ - 150 ? max_y + 150 : height_ - 1;
     unsigned box_width = box_x_end - box_x_start;
     unsigned box_height = box_y_end - box_y_start;
     unsigned x = width_ - box_width;
     unsigned y = 0;
     cout << box_x_start <<", " << box_x_end << endl;
     cout << box_y_start <<", " << box_y_end << endl;
-    for(;box_x_start <= box_x_end; ++box_x_start){
-        for(;box_y_start <= box_y_end; ++box_y_start){
-            base->getPixel(x,y) = base->getPixel(box_x_start, box_y_start);
+    for(unsigned temp1 = box_x_start ;temp1 <= box_x_end; ++temp1){
+        y = 0;
+        for(unsigned temp2 = box_y_start ;temp2 <= box_y_end; ++temp2){
+            base->getPixel(x,y) = base->getPixel(temp1, temp2);
             y++;
         }
         x++;
