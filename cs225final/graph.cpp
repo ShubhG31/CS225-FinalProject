@@ -206,8 +206,8 @@ void Graph::drawConnection(Node from, Node to) {
     cs225::HSLAPixel red (0,1,.5, 1);
 
 
-    double factor_X = (double)width_ / 10000;
-    double factor_Y = (double)height_ / 10000;
+    double factor_X = (double)(width_-1) / 10000;
+    double factor_Y = (double)(height_ -1) / 10000;
 
     int y1 = round(from.latitude * factor_Y); 
     int x1 = round(from.longitude * factor_X); 
@@ -261,7 +261,7 @@ void Graph::drawConnection(Node from, Node to) {
                 base->getPixel(x, y) = green;
                 d += i1;
             } else {
-                if (dy/dx >= 0) {
+                if ((double)dy/dx > 0) {
                     // cout << dy/dx<< endl;
                     y++;
                     base->getPixel(x, y) = green;
