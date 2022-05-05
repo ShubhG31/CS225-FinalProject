@@ -1,6 +1,5 @@
 #include "graph.h"
 #include <cmath>
-#include <limits>
 Graph::Graph(string node_data, string edge_data){
     makeNodeList(node_data);
     makeEdgeList(edge_data);
@@ -109,20 +108,13 @@ vector<int> Graph::findShortestPath(int first, int second){
     map<int,double> distances;
     map<int,bool> visited;
     map<int,vector<int>>paths;
-    for(auto i : nodeList){
-        distances[i.id] = numeric_limits<double>::max();
-    }
-    distances[first] = 0;
-    auto cmp = [&](pair<int,double> first, pair<int,double> sec){return distances[first.first] > distances[sec.first];};
+    auto cmp = [&](pair<int,double> first, pair<int,double> sec){return first.second > sec.second;};
     priority_queue<pair<int,double>, vector<pair<int,double>>, decltype(cmp)> q(cmp);
     q.push(pair<int,double>{first,0});
     paths[first] = vector<int>();
     while (!q.empty()){
-
         pair<int,double> top = q.top();
-
         if(top.first == second){
-            cout << distances[top.first]<<endl;
             paths[top.first].push_back(second);
             return paths[top.first];
         }
@@ -132,17 +124,17 @@ vector<int> Graph::findShortestPath(int first, int second){
         // i.first is the adjacent node and i.second is the edge length(not the distance from the root)
         for(pair<int,double> i : edges){
             // cout << top.first << " adjacent to " << i.first << " at distance " << i.second <<endl;
-                if(distances[top.first] + i.second < distances[i.first]){
+            if(!visited[i.first]){
+                if(distances[top.first] + i.second < distances[i.first] || distances[i.first] == 0){
                     distances[i.first] = distances[top.first] + i.second;
-                    if(!visited[i.first]){
-                        q.push(i);
-                    }
+                    q.push(i);
                     paths[i.first] = paths[top.first];
                     paths[i.first].push_back(top.first);
                 }
-            
+            }
         }
     }
+
     throw runtime_error("not found");
 }
 
@@ -361,7 +353,24 @@ void Graph::zoomIn(Graph::Node start , Graph::Node end){
     
     zoomedIn->addSticker(*box, width_ - 450, 0);
 
-    // Coord of Nodes in the zoom
-    
+    // Connect original to zoom nodes
+    int zx1 = width_ - (box_x_end - x1) * 450/box_width;
+    int zy1 = (y1 - box_y_start) * 450/box_height;
+    int zx2 = width_ - (box_x_end - x2) * 450/box_width;
+    int zy2 = (y2 - box_y_start) * 450/box_height;
+
+    Node a;
+    a.id = 1;
+    a.longitude = zx1;
+    a.latitude = zy1;
+
+    Node b;
+    b.id = 2;
+    b.longitude = zx2;
+    b.latitude = zy2;
+
+    drawConnection(start, a);
+    drawConnection(end, b);
+
     
 }
