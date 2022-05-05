@@ -132,6 +132,7 @@ vector<int> Graph::findShortestPath(int first, int second){
             }
         }
     }
+
     throw runtime_error("not found");
 }
 
@@ -142,14 +143,25 @@ vector<pair<int,long double>> Graph::adjacent(int node){
 Image * Graph::draw(vector<Graph::Node> nodes){
 
     Node from = nodes[0];
+    double distance = 0;
     for (size_t i = 1; i < nodes.size(); i++)
     {
         
         Node to = nodes[i];
         cout << to.id << from.id <<endl;
+        for(auto j : edgelist.at(from.id)){
+            if(j.first == to.id){
+                distance += j.second;
+                break;
+            }
+        }
         drawConnection(from,to);
         from = to;
+    }
+    if(distance < 500){
+        zoomIn(nodes[0], nodes[1]);        
     }   
+    
     return base;
 }
 
@@ -164,14 +176,23 @@ vector<Graph::Node> Graph::convert(vector<int> vect){
 }
 
 void Graph::drawBase(){
-    double factor_X = (double)width_ / 10000;
-    double factor_Y = (double)height_ / 10000;
+    double factor_X = (double)(width_ - 1)/ 10000;
+    double factor_Y = (double)(height_ - 1) / 10000;
     for(Node n : nodeList){
-        cs225::HSLAPixel& pix = base->getPixel(round(n.longitude*factor_X),round(n.latitude*factor_Y));
-        pix.h = 0;
-        pix.l = 0;
-        pix.a = 0;
-        pix.s = 0;
+        unsigned x = round(n.longitude*factor_X);
+        unsigned y = round(n.latitude*factor_Y);
+        for (unsigned i = x; i <= min(x+1,width_-1); i++)
+        {
+            for(unsigned j = y; j <= min(y+1,height_-1); ++j){
+
+                cs225::HSLAPixel& pix = base->getPixel(i,j);
+                pix.h = 0;
+                pix.l = 0;
+                pix.a = 1;
+                pix.s = 0;
+            }
+        }
+        
     }
 }
 
@@ -181,92 +202,141 @@ void Graph::writeTo(string file){
 
 void Graph::drawConnection(Node from, Node to) {
     
-        cs225::HSLAPixel green (120,1,.5, 1);
-        cs225::HSLAPixel red (0,1,.5, 1);
+    cs225::HSLAPixel green (120,1,.5, 1);
+    cs225::HSLAPixel red (0,1,.5, 1);
 
 
-        double factor_X = (double)width_ / 10000;
-        double factor_Y = (double)height_ / 10000;
+    double factor_X = (double)width_ / 10000;
+    double factor_Y = (double)height_ / 10000;
 
-        int y1 = round(from.latitude * factor_Y); 
-        int x1 = round(from.longitude * factor_X); 
-        int y2 = round(to.latitude * factor_Y); 
-        int x2 = round(to.longitude * factor_X); 
-        int dx = x2 - x1;
-        int dy = y2 - y1;
-        // cout << dy << ", " << dx << endl;
-        if (abs(dy) > abs(dx)) {
-            int i1 = 2 * abs(dx);
-            int i2 = i1 - 2 * abs(dy);
+    int y1 = round(from.latitude * factor_Y); 
+    int x1 = round(from.longitude * factor_X); 
+    int y2 = round(to.latitude * factor_Y); 
+    int x2 = round(to.longitude * factor_X); 
+    int dx = x2 - x1;
+    int dy = y2 - y1;
 
-            int d = i1 - abs(dy);
-            int x = y1 < y2 ? x1 : x2;
-            int y = min(y1,y2);
+    int x;
+    int y;
+    // cout << dy << ", " << dx << endl;
+    if (abs(dy) > abs(dx)) {
+        int i1 = 2 * abs(dx);
+        int i2 = i1 - 2 * abs(dy);
 
-            while (y < max(y1,y2)) {
-                y++;
-                if (d < 0) {
-                    base->getPixel(x, y) = green;
-                    d += i1;
-                } else {
-                    if (dy/dx > 0) {
-                        x++;
-                        base->getPixel(x, y) = green;
-                        d += i2;
-                    } else {
-                        x--;
-                        base->getPixel(x, y) = green;
-                        d += i2;
-                    }
-                }
-                // cout << i1 << ", " << i2 << ", " << d << endl;
-            }
-        } else if (abs(dy) < abs(dx)) {
-            int i1 = 2 * abs(dy);
-          
-            int i2 = i1 - 2 * abs(dx);
+        int d = i1 - abs(dy);
+        x = y1 < y2 ? x1 : x2;
+        y = min(y1,y2);
 
-            int d = i1 - abs(dx);
-            int y = x1 < x2 ? y1 : y2;
-            int x = min(x1,x2);
-
-            while (x < max(x1,x2)) {
-                x++;
-                if (d < 0) {
-                    base->getPixel(x, y) = green;
-                    d += i1;
-                } else {
-                    if (dy/dx > 0) {
-                        // cout << __LINE__ << endl;
-                        y++;
-                        base->getPixel(x, y) = green;
-                        d += i2;
-                    } else {
-                        y--;
-                        base->getPixel(x, y) = green;
-                        d += i2;
-                    }
-                }
-            }
-        } else {
-            int x = x1;
-            int y = y1;
-
-            while (x <= x2) {
-                // cout << __LINE__ << endl;
+        while (y < max(y1,y2)) {
+            y++;
+            if (d < 0) {
                 base->getPixel(x, y) = green;
-                x++;
-                y++;
+                d += i1;
+            } else {
+                if (dy/dx >= 0) {
+                    x++;
+                    base->getPixel(x, y) = green;
+                    d += i2;
+                } else {
+                    x--;
+                    base->getPixel(x, y) = green;
+                    d += i2;
+                }
+            }
+            // cout << i1 << ", " << i2 << ", " << d << endl;
+        }
+    } else if (abs(dy) < abs(dx)) {
+        // cout << dy << ' '<< dx <<endl;
+        int i1 = 2 * abs(dy);
+        
+        int i2 = i1 - 2 * abs(dx);
+
+        int d = i1 - abs(dx);
+        y = x1 < x2 ? y1 : y2;
+        x = min(x1,x2);
+
+        while (x < max(x1,x2)) {
+            x++;
+            if (d < 0) {
+                base->getPixel(x, y) = green;
+                d += i1;
+            } else {
+                if (dy/dx >= 0) {
+                    // cout << dy/dx<< endl;
+                    y++;
+                    base->getPixel(x, y) = green;
+                    d += i2;
+                } else {
+                    y--;
+                    base->getPixel(x, y) = green;
+                    d += i2;
+                }
             }
         }
-        base->getPixel(x1, y1) = red;
-        base->getPixel(x2, y2) = red;
+    } else {
+        x = x1;
+        y = y1;
+
+        while (x <= x2) {
+            // cout << __LINE__ << endl;
+            base->getPixel(x, y) = green;
+            x++;
+            y++;
+        }
+    }
+    base->getPixel(x1, y1) = red;
+    base->getPixel(x2, y2) = red;
 }
 
 void Graph::drawAllEdges(){
+    map<int,bool> seen;
     for(auto i : edgelist){
+        seen[i.first] = true;
         for(auto j : i.second){
-            drawConnection(nodeList[i.first],nodeList[j.first]);
+            if(!(seen[j.first]) || !(seen[i.first])){
+                drawConnection(nodeList[i.first],nodeList[j.first]);
+                seen[j.first] = true;
+            }
         }
     }
+}
+
+void Graph::setHeight(unsigned h){
+    height_ = h;
+}
+
+void Graph::setWidth(unsigned w){
+    width_ = w;
+}
+
+void Graph::zoomIn(Graph::Node start , Graph::Node end){
+    double factor_X = (double)(width_ - 1) / 10000;
+    double factor_Y = (double)(height_ -1)/ 10000;
+
+    int y1 = round(start.latitude * factor_Y); 
+    int x1 = round(start.longitude * factor_X); 
+    int y2 = round(end.latitude * factor_Y); 
+    int x2 = round(end.longitude * factor_X); 
+    unsigned min_x = min(x1, x2);
+    unsigned max_x = max(x1, x2);
+    unsigned min_y = min(y1, y2);
+    unsigned max_y = max(y1,y2);
+    unsigned box_x_start = min_x >= 15 ?min_x - 15 : 0;
+    unsigned box_y_start = min_y >= 15 ? min_y - 15 : 0;
+    unsigned box_x_end = max_x < width_ - 15 ? max_x + 15 : width_;
+    unsigned box_y_end = max_y < height_ - 15 ? max_y + 15 : height_;
+    unsigned box_width = box_x_end - box_x_start;
+    unsigned box_height = box_y_end - box_y_start;
+    unsigned x = width_ - box_width;
+    unsigned y = 0;
+    cout << box_x_start <<", " << box_x_end << endl;
+    cout << box_y_start <<", " << box_y_end << endl;
+    for(;box_x_start <= box_x_end; ++box_x_start){
+        for(;box_y_start <= box_y_end; ++box_y_start){
+            base->getPixel(x,y) = base->getPixel(box_x_start, box_y_start);
+            y++;
+        }
+        x++;
+    }
+    
 }

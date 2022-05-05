@@ -34,6 +34,9 @@ class Graph {
         void drawConnection(Node from, Node to);
         void writeTo(string file);
         void drawAllEdges();
+        void setHeight(unsigned h);
+        void setWidth(unsigned w);
+        void zoomIn(Node start, Node end);
 
         //move to private once testing is completed
         long double x_inc = 0.05715722810;
