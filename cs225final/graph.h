@@ -8,6 +8,7 @@
 #include <exception>
 #include "cs225/PNG.h"
 #include "Image.h"
+#include "StickerSheet.h"
 
 using namespace std;
 
@@ -46,6 +47,7 @@ class Graph {
         unsigned width_;
         unsigned height_;
         Image* base;
+        StickerSheet * zoomedIn;
     private:
         // map<int, vector<pair<int,double>>> edgelist;
         // vector<Node> nodeList;

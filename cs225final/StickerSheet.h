@@ -14,7 +14,7 @@ class StickerSheet{
         size_t size_;
         
     public:
-        StickerSheet(const Image &picture, unsigned max);
+        StickerSheet(Image &picture, unsigned max);
         ~StickerSheet();
         StickerSheet(const StickerSheet& other);
         const StickerSheet & operator= (const StickerSheet & other);

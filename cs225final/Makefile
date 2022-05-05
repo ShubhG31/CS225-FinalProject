@@ -35,7 +35,7 @@ TEST = test
 
 # Add all object files needed for compiling:
 EXE_OBJ = main.o
-OBJS = Image.o graph.o main.o
+OBJS = Image.o graph.o main.o StickerSheet.o
 
 # Generated files
 CLEAN_RM = out.png

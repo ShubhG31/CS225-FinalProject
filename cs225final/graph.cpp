@@ -7,6 +7,7 @@ Graph::Graph(string node_data, string edge_data){
     width_ = 2000;
     base = new Image();
     base->resize(width_,height_);
+    zoomedIn = new StickerSheet(*base, 1);
     for(unsigned x = 0; x < width_; ++x){
         for (unsigned y = 0; y < height_; ++y){
             cs225::HSLAPixel& pix = base->getPixel(x,y);
@@ -28,7 +29,8 @@ Graph::Graph(string node_data, string edge_data, string file){
 }
 
 Graph::~Graph(){
-    delete base;
+    // delete base;
+    delete zoomedIn;
 }
 
 bool operator==(const Graph::Node& a, const Graph::Node& b){
@@ -197,7 +199,8 @@ void Graph::drawBase(){
 }
 
 void Graph::writeTo(string file){
-    base->writeToFile(file);
+    Image result = zoomedIn->render();
+    result.writeToFile(file);
 }
 
 void Graph::drawConnection(Node from, Node to) {
@@ -321,23 +324,36 @@ void Graph::zoomIn(Graph::Node start , Graph::Node end){
     unsigned max_x = max(x1, x2);
     unsigned min_y = min(y1, y2);
     unsigned max_y = max(y1,y2);
-    unsigned box_x_start = min_x >= 150 ?min_x - 150 : 0;
-    unsigned box_y_start = min_y >= 150 ? min_y - 150 : 0;
-    unsigned box_x_end = max_x < width_ - 150 ? max_x + 150 : width_ - 1;
-    unsigned box_y_end = max_y < height_ - 150 ? max_y + 150 : height_ - 1;
+    unsigned box_x_start = min_x >= 15 ?min_x - 15 : 0;
+    unsigned box_y_start = min_y >= 15 ? min_y - 15 : 0;
+    unsigned box_x_end = max_x < width_ - 15 ? max_x + 15 : width_ - 1;
+    unsigned box_y_end = max_y < height_ - 15 ? max_y + 15 : height_ - 1;
     unsigned box_width = box_x_end - box_x_start;
     unsigned box_height = box_y_end - box_y_start;
     unsigned x = width_ - box_width;
     unsigned y = 0;
+    Image * box = new Image();
+    box->resize(box_width, box_height);
+    
     cout << box_x_start <<", " << box_x_end << endl;
     cout << box_y_start <<", " << box_y_end << endl;
-    for(unsigned temp1 = box_x_start ;temp1 <= box_x_end; ++temp1){
-        y = 0;
-        for(unsigned temp2 = box_y_start ;temp2 <= box_y_end; ++temp2){
-            base->getPixel(x,y) = base->getPixel(temp1, temp2);
-            y++;
+    unsigned x_box = 0;
+    unsigned y_box = 0;
+    for(unsigned temp1 = box_x_start ;temp1 < box_x_end; ++temp1){
+        y_box = 0;
+        for(unsigned temp2 = box_y_start ;temp2 < box_y_end; ++temp2){
+            box->getPixel(x_box,y_box) = base->getPixel(temp1, temp2);
+            y_box++;
         }
-        x++;
+        x_box++;
     }
+
+    box->scale(450,450);
+    cout<<"here" <<endl;
+    
+    zoomedIn->addSticker(*box, width_ - 450, 0);
+
+    // Coord of Nodes in the zoom
+    
     
 }

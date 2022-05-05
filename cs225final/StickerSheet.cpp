@@ -4,9 +4,9 @@ using cs225::HSLAPixel;
 using cs225::PNG;
 
 
-StickerSheet::StickerSheet(const Image& picture, unsigned max){
+StickerSheet::StickerSheet(Image& picture, unsigned max){
     size_=max;
-    base_ = new Image(picture);
+    base_ = &picture;
     base_->x=picture.x;
     base_->y=picture.y;
     

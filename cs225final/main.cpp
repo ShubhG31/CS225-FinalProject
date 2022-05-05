@@ -21,11 +21,11 @@ int main(){
     //         cout<<i.first << " " << i.second <<endl;
     //     }
     // }
-    // vector<int> path = h.findShortestPath(5079,5150);
-    // vector<Graph::Node> p = h.convert(path);
+    vector<int> path = h.findShortestPath(0,375);
+    vector<Graph::Node> p = h.convert(path);
     h.drawBase();
-    h.drawConnection(h.nodeList[3390],h.nodeList[3391]);
-    h.zoomIn(h.nodeList[3390],h.nodeList[3391]);
+    h.draw(p);
+    // h.zoomIn(h.nodeList[3390],h.nodeList[3391]);
     // h.drawAllEdges();
     h.writeTo("myfile.png");
 
