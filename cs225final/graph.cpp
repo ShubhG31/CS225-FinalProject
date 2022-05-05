@@ -3,8 +3,8 @@
 Graph::Graph(string node_data, string edge_data){
     makeNodeList(node_data);
     makeEdgeList(edge_data);
-    height_ = 500;
-    width_ = 500;
+    height_ = 2000;
+    width_ = 2000;
     base = new Image();
     base->resize(width_,height_);
     for(unsigned x = 0; x < width_; ++x){
@@ -163,7 +163,7 @@ vector<Graph::Node> Graph::convert(vector<int> vect){
     return to_return;
 }
 
-Image* Graph::drawBase(){
+void Graph::drawBase(){
     double factor_X = (double)width_ / 10000;
     double factor_Y = (double)height_ / 10000;
     for(Node n : nodeList){
@@ -173,7 +173,10 @@ Image* Graph::drawBase(){
         pix.a = 0;
         pix.s = 0;
     }
-    return base;
+}
+
+void Graph::writeTo(string file){
+    base->writeToFile(file);
 }
 
 void Graph::drawConnection(Node from, Node to) {
@@ -260,3 +263,10 @@ void Graph::drawConnection(Node from, Node to) {
         base->getPixel(x2, y2) = red;
 }
 
+void Graph::drawAllEdges(){
+    for(auto i : edgelist){
+        for(auto j : i.second){
+            drawConnection(nodeList[i.first],nodeList[j.first]);
+        }
+    }
+}

@@ -30,8 +30,10 @@ class Graph {
         Image * draw(vector<Node> nodes);
         void read(string filename);
         vector<Node> convert(vector<int> vect);
-        Image* drawBase();
+        void drawBase();
         void drawConnection(Node from, Node to);
+        void writeTo(string file);
+        void drawAllEdges();
 
         //move to private once testing is completed
         long double x_inc = 0.05715722810;
