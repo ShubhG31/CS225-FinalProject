@@ -1,5 +1,6 @@
 #include "graph.h"
 #include <cmath>
+#include <limits>
 Graph::Graph(string node_data, string edge_data){
     makeNodeList(node_data);
     makeEdgeList(edge_data);
@@ -108,13 +109,20 @@ vector<int> Graph::findShortestPath(int first, int second){
     map<int,double> distances;
     map<int,bool> visited;
     map<int,vector<int>>paths;
-    auto cmp = [&](pair<int,double> first, pair<int,double> sec){return first.second > sec.second;};
+    for(auto i : nodeList){
+        distances[i.id] = numeric_limits<double>::max();
+    }
+    distances[first] = 0;
+    auto cmp = [&](pair<int,double> first, pair<int,double> sec){return distances[first.first] > distances[sec.first];};
     priority_queue<pair<int,double>, vector<pair<int,double>>, decltype(cmp)> q(cmp);
     q.push(pair<int,double>{first,0});
     paths[first] = vector<int>();
     while (!q.empty()){
+
         pair<int,double> top = q.top();
+
         if(top.first == second){
+            cout << distances[top.first]<<endl;
             paths[top.first].push_back(second);
             return paths[top.first];
         }
@@ -124,17 +132,17 @@ vector<int> Graph::findShortestPath(int first, int second){
         // i.first is the adjacent node and i.second is the edge length(not the distance from the root)
         for(pair<int,double> i : edges){
             // cout << top.first << " adjacent to " << i.first << " at distance " << i.second <<endl;
-            if(!visited[i.first]){
-                if(distances[top.first] + i.second < distances[i.first] || distances[i.first] == 0){
+                if(distances[top.first] + i.second < distances[i.first]){
                     distances[i.first] = distances[top.first] + i.second;
-                    q.push(i);
+                    if(!visited[i.first]){
+                        q.push(i);
+                    }
                     paths[i.first] = paths[top.first];
                     paths[i.first].push_back(top.first);
                 }
-            }
+            
         }
     }
-
     throw runtime_error("not found");
 }
 

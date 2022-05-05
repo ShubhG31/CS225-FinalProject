@@ -22,6 +22,9 @@ int main(){
     //     }
     // }
     vector<int> path = h.findShortestPath(0,375);
+    for(int i : path){
+        cout << i <<endl;
+    }
     vector<Graph::Node> p = h.convert(path);
     h.drawBase();
     h.draw(p);
