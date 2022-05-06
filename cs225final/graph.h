@@ -45,7 +45,7 @@ class Graph {
         void addEdge(Node node1, Node node2, double dist);
 
         /**
-        * Finds the shortest path between nodes by id and Djikstra's Algorithm
+        * Finds the shortest path between nodes by id and Dijkstra's Algorithm
         * @param first id of the first node
         * @param second id of the second node
         */
