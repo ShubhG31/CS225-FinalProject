@@ -16,10 +16,11 @@ Graph::Graph(string node_data, string edge_data){
             pix.a = 1;
             pix.s = 0;
             if((x == width_-451 && y < 451) || (y == 451 && x >= width_-451)){
-                pix.h = 0;
-                pix.l = 0;
-                pix.a = 1;
-                pix.s = 0;
+                // pix.h = 0;
+                // pix.l = 0;
+                // pix.a = 1;
+                // pix.s = 0;
+                pix = black;
             }
         }
     }
@@ -163,7 +164,7 @@ Image * Graph::draw(vector<Graph::Node> nodes){
                 break;
             }
         }
-        drawConnection(from,to);
+        drawConnection(from,to, red, green);
         from = to;
     }
     if(distance < 500){
@@ -209,7 +210,7 @@ void Graph::writeTo(string file){
     result.writeToFile(file);
 }
 
-void Graph::drawConnection(Node from, Node to) {
+void Graph::drawConnection(Node from, Node to, cs225::HSLAPixel nodeColor, cs225::HSLAPixel edgeColor) {
     
     cs225::HSLAPixel green (120,1,.5, 1);
     cs225::HSLAPixel red (0,1,.5, 1);
@@ -239,16 +240,16 @@ void Graph::drawConnection(Node from, Node to) {
         while (y < max(y1,y2)) {
             y++;
             if (d < 0) {
-                base->getPixel(x, y) = green;
+                base->getPixel(x, y) = edgeColor;
                 d += i1;
             } else {
                 if (dy/dx >= 0) {
                     x++;
-                    base->getPixel(x, y) = green;
+                    base->getPixel(x, y) = edgeColor;
                     d += i2;
                 } else {
                     x--;
-                    base->getPixel(x, y) = green;
+                    base->getPixel(x, y) = edgeColor;
                     d += i2;
                 }
             }
@@ -267,17 +268,17 @@ void Graph::drawConnection(Node from, Node to) {
         while (x < max(x1,x2)) {
             x++;
             if (d < 0) {
-                base->getPixel(x, y) = green;
+                base->getPixel(x, y) = edgeColor;
                 d += i1;
             } else {
                 if ((double)dy/dx > 0) {
                     // cout << dy/dx<< endl;
                     y++;
-                    base->getPixel(x, y) = green;
+                    base->getPixel(x, y) = edgeColor;
                     d += i2;
                 } else {
                     y--;
-                    base->getPixel(x, y) = green;
+                    base->getPixel(x, y) = edgeColor;
                     d += i2;
                 }
             }
@@ -288,13 +289,13 @@ void Graph::drawConnection(Node from, Node to) {
 
         while (x <= x2) {
             // cout << __LINE__ << endl;
-            base->getPixel(x, y) = green;
+            base->getPixel(x, y) = edgeColor;
             x++;
             y++;
         }
     }
-    base->getPixel(x1, y1) = red;
-    base->getPixel(x2, y2) = red;
+    base->getPixel(x1, y1) = nodeColor;
+    base->getPixel(x2, y2) = nodeColor;
 }
 
 void Graph::drawAllEdges(){
@@ -303,7 +304,7 @@ void Graph::drawAllEdges(){
         seen[i.first] = true;
         for(auto j : i.second){
             if(!(seen[j.first]) || !(seen[i.first])){
-                drawConnection(nodeList[i.first],nodeList[j.first]);
+                drawConnection(nodeList[i.first],nodeList[j.first], red, green);
                 seen[j.first] = true;
             }
         }
@@ -366,15 +367,13 @@ void Graph::zoomIn(Graph::Node start , Graph::Node end){
     int zy2 = (y2 - box_y_start) * 450/box_height;
     cout << zx1 << " " << zx2 << " " << zy1 << " "<< zy2 << endl;
     Node a;
-    // a.id = 1;
     a.longitude = zx1/factor_X;
     a.latitude = zy1/factor_Y;
 
     Node b;
-    // b.id = 2;
     b.longitude = zx2/factor_X;
     b.latitude = zy2/factor_Y;
 
-    drawConnection(start, a);
-    drawConnection(end, b);
+    drawConnection(start, a, transparent, black);
+    drawConnection(end, b, transparent, black);
 }

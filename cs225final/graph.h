@@ -18,7 +18,7 @@ class Graph {
         int id;
         long double longitude;
         long double latitude;
-    };
+        };
         Graph(string node_data, string edge_data);
         Graph(string node_data, string edge_data, string file);
         ~Graph();
@@ -32,7 +32,7 @@ class Graph {
         void read(string filename);
         vector<Node> convert(vector<int> vect);
         void drawBase();
-        void drawConnection(Node from, Node to);
+        void drawConnection(Node from, Node to, cs225::HSLAPixel nodeColor, cs225::HSLAPixel edgeColor);
         void writeTo(string file);
         void drawAllEdges();
         void setHeight(unsigned h);
@@ -48,6 +48,15 @@ class Graph {
         unsigned height_;
         Image* base;
         StickerSheet * zoomedIn;
+
+        // Colors
+        cs225::HSLAPixel yellow = cs225::HSLAPixel(60, 1, .5, 1);
+        cs225::HSLAPixel orange = cs225::HSLAPixel(23,.95,.52, 1);
+        cs225::HSLAPixel green = cs225::HSLAPixel(120,1,.5, 1);
+        cs225::HSLAPixel red = cs225::HSLAPixel(0,1,.5, 1);
+        cs225::HSLAPixel black = cs225::HSLAPixel(0, 0, 0, 1);
+        cs225::HSLAPixel transparent = cs225::HSLAPixel(0, 0, 0, 0);
+
     private:
         // map<int, vector<pair<int,double>>> edgelist;
         // vector<Node> nodeList;

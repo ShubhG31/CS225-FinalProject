@@ -28,7 +28,7 @@ int main(){
     // vector<Graph::Node> p = h.convert(path);
     h.drawBase();
     // h.draw(p);
-    h.drawConnection(h.nodeList[7832],h.nodeList[7836]);
+    h.drawConnection(h.nodeList[7832],h.nodeList[7836], h.red, h.green);
     h.zoomIn(h.nodeList[7832],h.nodeList[7836]);
     // h.drawAllEdges();
     h.writeTo("myfile.png");
