@@ -5,6 +5,8 @@ Github Organization – You should describe the physical location of all major f
 
 Running Instructions – You should provide full instructions on how to build and run your executable, including how to define the input data and output location for each method. You should also have instructions on how to build and run your test suite, including a general description on what tests you have created. It is in your best interest to make the instructions (and the running of your executables and tests) as simple and straightforward as possible.
 
+## Running Instructions
+   To run our project on your machine, you first need to clone this repository on your machine. After doing so, you will need to go into the cs225final file. To run the 
 
 
 
@@ -17,18 +19,17 @@ Running Instructions – You should provide full instructions on how to build an
   - edge2.csv
   - node.csv
 
-  ### assets 
-   Contains png files to as reference to what the output of our code is suppose to do.
-   #### Files 
-   - map.png 
-   - sanfrancisco.png
-  
   ### cs225 
    This file is provided in all MP code to students of cs225 at UIUC, to be able to change PNGs. This code is used by our stickersheet.cpp in order to create our png image containing our shortest path from locations. 
    #### Folders 
    - Catch
+      - catch.hpp
+      - catchmain.cpp
    - lodepng
+     - lodepng.cpp
+     - lodepng.h
    - make
+      - cs225.mk
    #### Files 
    - HSLAPixel.cpp
    - HSLAPixel.h
@@ -36,8 +37,9 @@ Running Instructions – You should provide full instructions on how to build an
    - PNG.h
    - RGB_HSL.h
  ### tests
-  
-
+  this folder holds the files related to testing our project. The file checks our Dkjistras Algorithm, Drawing Connections, Zoom in, and BFS. 
+   #### Files
+   - tests.cpp
 ```bash
 ./cs225final>dir 
   
