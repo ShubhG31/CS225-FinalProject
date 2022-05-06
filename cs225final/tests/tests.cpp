@@ -40,6 +40,31 @@ TEST_CASE("Test Shortest Path", "djikstra") {
   vector<int> sol2{0,4};
   REQUIRE(sol2 == h2.findShortestPath(0,4));
 }
+
+TEST_CASE("Test Shortest Path II", "djikstra"){
+  string node_data = "CSV_tests/node.csv";
+  string edge_data = "CSV_tests/edge2.csv";
+  Graph h(node_data, edge_data);
+  vector<int>sol{0,2};
+  vector<int> path = h.findShortestPath(0,2);
+  REQUIRE(sol == h.findShortestPath(0,2));
+  try{
+    h.findShortestPath(0,4);
+  } 
+  catch (runtime_error e){
+    REQUIRE(1+1 == 2);
+  }
+}
+
+TEST_CASE("Test Shortest Path III", "djikstra"){
+  string node_data = "CSV_tests/node2.csv";
+  string edge_data = "CSV_tests/edge3.csv";
+  Graph h(node_data, edge_data);
+  vector<int>sol{0,4,5};
+  REQUIRE(sol == h.findShortestPath(0,5));
+}
+
+
 TEST_CASE("Node Data Parsing", "") {
   string node_data = "CSV_tests/node.csv";
   string edge_data = "CSV_tests/edge.csv";
@@ -169,4 +194,22 @@ TEST_CASE("drawConnection slope downward less than -1", ""){
     REQUIRE(sol.at(i).first == t.at(i).first);
     REQUIRE(sol.at(i).second == t.at(i).second);
   }
+}
+
+TEST_CASE("test zoomIn", ""){
+  string node_data = "sanfrancisco/SF.txt";
+  string edge_data = "sanfrancisco/SF2.txt";
+  Graph h(node_data, edge_data);
+  vector<int> path = h.findShortestPath(0,375);
+  vector<Graph::Node> p = h.convert(path);
+  h.drawBase();
+  h.draw(p);
+  REQUIRE(h.zoomIn_calls == 0);
+
+  h.drawBase();
+  path = h.findShortestPath(0,5);
+  p = h.convert(path);
+  h.draw(p);
+  REQUIRE(h.zoomIn_calls == 1);
+
 }
