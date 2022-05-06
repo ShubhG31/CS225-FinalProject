@@ -23,47 +23,102 @@ class Graph {
         Graph(string node_data, string edge_data);
         Graph(string node_data, string edge_data, string file);
         ~Graph();
-        // load nodes
+
+        /**
+        * Loads Nodes 
+        * @param file file to read and load nodes.
+        */
         void makeNodeList(string file);
 
-        // load edges
+        /**
+        * Loads Edges 
+        * @param file file to read and load edges.
+        */
         void makeEdgeList(string file);
 
-        //add custom edges
+        /**
+        * Adds Edges
+        * @param node1 first node of the edge
+        * @param node2 second node of the edge
+        * @param dist distance between the edges
+        */
         void addEdge(Node node1, Node node2, double dist);
 
-        //djikstra's algorithm to find shortest from one source node's id to the destination node's id
+        /**
+        * Finds the shortest path between nodes by id and Djikstra's Algorithm
+        * @param first id of the first node
+        * @param second id of the second node
+        */
         vector<int> findShortestPath(int first, int second);
 
-        // get adjacent edges to a given node
+        /**
+        * Gets the adjacent edges of a given node
+        * @param node id of the given node
+        */
         vector<pair<int,long double> > adjacent(int node);
 
-        // draw a path (vector<Node>) to the base image;
+        /**
+        * Draws the path between all nodes in the vector
+        * @param nodes vector of nodes
+        */
         void draw(vector<Node> nodes);
 
-        // read a different base Image
+        /**
+        * Reads a different bse image
+        * @param file file to read
+        */
         void read(string filename);
 
-        // converts a path of integers to a path of nodes;
+        /**
+        * Converts a path of integers to a path of nodes.
+        * @param vect vector of nodes that is the path of nodes
+        */
         vector<Node> convert(vector<int> vect);
 
-        // draw all the nodes on the base
+        /**
+        * Draws all nodes onto the base.
+        */
         void drawBase();
 
-        // draw connection between two nodes(on the base) with the nodes being coloured as nodeColor and edges as edgeColor
+        /**
+        * Draws connection between two nodes(on the base image) with the 
+        * given colors for nodes and edges.
+        * @param from the node to start from
+        * @param to the node to end at
+        * @param nodeColor the color of the node
+        * @param edgeColor the color of the edge
+        */
         void drawConnection(Node from, Node to, cs225::HSLAPixel nodeColor, cs225::HSLAPixel edgeColor);
 
-        // write the current map to file
+        /**
+        * Write the current map to file.
+        * @param file the file to write to.
+        */
         void writeTo(string file);
 
-        // draws all edges
+        /**
+        * Draws all edges.
+        */
         void drawAllEdges();
 
-        // setters
+        /**
+        * Sets height
+        * @param h the height to set to
+        */
         void setHeight(unsigned h);
+
+        /**
+        * Sets width
+        * @param w the width to set to
+        */
         void setWidth(unsigned w);
 
-        // zoomIn two nodes if their distance is less than 500 pixels. draws the zoomIn part on the top-right of the image.
+        /**
+        * Zoom in two nodes if their distance is less than 500 pixels. 
+        * Draws the zoomed portion on the top-right of the image.
+        * @param start the node to start the zoom
+        * @param end the node to end the zoom
+        */
         void zoomIn(Node start, Node end);
 
         //move to private once testing is completed
@@ -75,7 +130,9 @@ class Graph {
         StickerSheet * zoomedIn;
 
 
-        // Colors
+        /**
+        * Colors
+        */
         cs225::HSLAPixel yellow = cs225::HSLAPixel(60, 1, .5, 1);
         cs225::HSLAPixel orange = cs225::HSLAPixel(23,.95,.52, 1);
         cs225::HSLAPixel green = cs225::HSLAPixel(120,1,.5, 1);
