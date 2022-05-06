@@ -6,9 +6,19 @@ Github Organization – You should describe the physical location of all major f
 Running Instructions – You should provide full instructions on how to build and run your executable, including how to define the input data and output location for each method. You should also have instructions on how to build and run your test suite, including a general description on what tests you have created. It is in your best interest to make the instructions (and the running of your executables and tests) as simple and straightforward as possible.
 
 ## Running Instructions
-   To run our project on your machine, you first need to clone this repository on your machine. After doing so, you will need to go into the cs225final file. To run the project, type ./tests <filename>, and insert a filename where the output should be named. If ./tests is ran without <filename> inserted, the default file is myfile.png.
+   To run our project on your machine, you first need to clone this repository on your machine. After doing so, you will need to go into the cs225final file. To run the project, type ./final <filename>, and insert a filename where the output should be named. If ./final is ran without <filename> inserted, the default file is myfile.png.
 
-
+```bash
+cd cs225final
+make
+./final [output] [start node] [end node]
+```
+   to run test cases
+```bash
+cd cs225final
+make test
+./test
+``` 
 
 ## Github Organization
    All our code is stored inside the css225final folder. The folder contains cpp files, such as main.cpp, StickerSheet.cpp, graph.cpp, Image.cpp, contain the major files that the project uses. The txt files in the folder are the files that are parsed to store in  data structures, such vectors etc, to be used in the rest of the code. 
