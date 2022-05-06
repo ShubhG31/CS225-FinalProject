@@ -6,7 +6,7 @@ Github Organization – You should describe the physical location of all major f
 Running Instructions – You should provide full instructions on how to build and run your executable, including how to define the input data and output location for each method. You should also have instructions on how to build and run your test suite, including a general description on what tests you have created. It is in your best interest to make the instructions (and the running of your executables and tests) as simple and straightforward as possible.
 
 ## Running Instructions
-   To run our project on your machine, you first need to clone this repository on your machine. After doing so, you will need to go into the cs225final file. To run the 
+   To run our project on your machine, you first need to clone this repository on your machine. After doing so, you will need to go into the cs225final file. To run the project, type ./tests <filename>, and insert a filename where the output should be named. If ./tests is ran without <filename> inserted, the default file is myfile.png.
 
 
 
