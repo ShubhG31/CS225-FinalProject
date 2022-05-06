@@ -27,7 +27,10 @@ make test
   #### Files 
   - edges.csv
   - edge2.csv
+  - edge3.csv
   - node.csv
+  - node2.csv
+  - node4.csv
 
   ### cs225 
    This file is provided in all MP code to students of cs225 at UIUC, to be able to change PNGs. This code is used by our stickersheet.cpp in order to create our png image containing our shortest path from locations. 
