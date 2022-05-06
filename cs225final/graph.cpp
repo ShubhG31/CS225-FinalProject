@@ -24,13 +24,6 @@ Graph::Graph(string node_data, string edge_data){
             pix.l = 1;
             pix.a = 1;
             pix.s = 0;
-            if((x == width_-451 && y < 451) || (y == 451 && x >= width_-451)){
-                // pix.h = 0;
-                // pix.l = 0;
-                // pix.a = 1;
-                // pix.s = 0;
-                pix = black;
-            }
         }
     }
 
@@ -234,13 +227,6 @@ void Graph::drawBase(){
             pix.l = 1;
             pix.a = 1;
             pix.s = 0;
-            if((x == width_-451 && y < 451) || (y == 451 && x >= width_-451)){
-                // pix.h = 0;
-                // pix.l = 0;
-                // pix.a = 1;
-                // pix.s = 0;
-                pix = black;
-            }
         }
     }
     double factor_X = (double)(width_ - 1)/ 10000;
@@ -299,15 +285,24 @@ void Graph::drawConnection(Node from, Node to, cs225::HSLAPixel nodeColor, cs225
             y++;
             if (d < 0) {
                 base->getPixel(x, y) = edgeColor;
+                base->getPixel(x + 1,y) = edgeColor;
+                base->getPixel(x+1,y) = edgeColor;
+                base->getPixel(x+1,y+1) = edgeColor;
                 d += i1;
             } else {
                 if (dy/dx >= 0) {
                     x++;
                     base->getPixel(x, y) = edgeColor;
+                    base->getPixel(x + 1,y) = edgeColor;
+                    base->getPixel(x+1,y) = edgeColor;
+                    base->getPixel(x+1,y+1) = edgeColor;
                     d += i2;
                 } else {
                     x--;
                     base->getPixel(x, y) = edgeColor;
+                    base->getPixel(x + 1,y) = edgeColor;
+                    base->getPixel(x+1,y) = edgeColor;
+                    base->getPixel(x+1,y+1) = edgeColor;
                     d += i2;
                 }
             }
@@ -327,27 +322,39 @@ void Graph::drawConnection(Node from, Node to, cs225::HSLAPixel nodeColor, cs225
             x++;
             if (d < 0) {
                 base->getPixel(x, y) = edgeColor;
+                base->getPixel(x + 1,y) = edgeColor;
+                base->getPixel(x+1,y) = edgeColor;
+                base->getPixel(x+1,y+1) = edgeColor;
                 d += i1;
             } else {
                 if ((double)dy/dx > 0) {
                     // cout << dy/dx<< endl;
                     y++;
                     base->getPixel(x, y) = edgeColor;
+                    base->getPixel(x + 1,y) = edgeColor;
+                    base->getPixel(x+1,y) = edgeColor;
+                    base->getPixel(x+1,y+1) = edgeColor;
                     d += i2;
                 } else {
                     y--;
                     base->getPixel(x, y) = edgeColor;
+                    base->getPixel(x + 1,y) = edgeColor;
+                    base->getPixel(x+1,y) = edgeColor;
+                    base->getPixel(x+1,y+1) = edgeColor;
                     d += i2;
                 }
             }
         }
     } else {
-        x = x1;
-        y = y1;
+        y = x1 < x2 ? y1 : y2;
+        x = min(x1,x2);
 
-        while (x <= x2) {
+        while (x < max(x1,x2)) {
             // cout << __LINE__ << endl;
             base->getPixel(x, y) = edgeColor;
+            base->getPixel(x + 1,y) = edgeColor;
+            base->getPixel(x+1,y) = edgeColor;
+            base->getPixel(x+1,y+1) = edgeColor;
             x++;
             y++;
         }
@@ -362,7 +369,7 @@ void Graph::drawAllEdges(){
         seen[i.first] = true;
         for(auto j : i.second){
             if(!(seen[j.first]) || !(seen[i.first])){
-                drawConnection(nodeList[i.first],nodeList[j.first], red, green);
+                drawConnection(nodeList[i.first],nodeList[j.first], black, black);
                 seen[j.first] = true;
             }
         }
@@ -378,6 +385,18 @@ void Graph::setWidth(unsigned w){
 }
 
 void Graph::zoomIn(Graph::Node start , Graph::Node end){
+    for(unsigned x = 0; x < width_; ++x){
+        for (unsigned y = 0; y < height_; ++y){
+            cs225::HSLAPixel& pix = base->getPixel(x,y);
+            if((x == width_-451 && y < 451) || (y == 451 && x >= width_-451)){
+                // pix.h = 0;
+                // pix.l = 0;
+                // pix.a = 1;
+                // pix.s = 0;
+                pix = black;
+            }
+        }
+    }
     zoomIn_calls++;
     double factor_X = (double)(width_ - 1) / 10000;
     double factor_Y = (double)(height_ -1)/ 10000;

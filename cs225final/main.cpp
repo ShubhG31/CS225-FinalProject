@@ -1,37 +1,53 @@
 #include "graph.h"
 #include <iostream>
 using namespace std;
-int main(){
+int main(int argc, char** argv){
+    bool use_default = false;
+    if(argc == 3){
+        try
+        {
+            stoi(argv[1]);
+        }
+        catch(const std::exception& e)
+        {
+            std::cerr << e.what() << '\n';
+        }
+        use_default = true;
+    }else if(argc == 2){
+        try
+        {
+            stoi(argv[1]);
+            throw runtime_error("usage: ./test [output] [start node] [end node]");
+        }
+        catch(const std::exception& e)
+        {
+            cout << "";
+        }
+        
+    }
+    if(argc > 4){
+        throw runtime_error("usage: ./test [output] [start node] [end node]");
+    }
     string node_data = "sanfrancisco/SF.txt";
     string edge_data = "sanfrancisco/SF2.txt";
-    string img = "assets/sanfrancisco.png";
+    // string img = "assets/sanfrancisco.png";
     Graph h(node_data, edge_data);
-
-    // Uncomment lines 8-12 to see the nodedataset being parsed
-    //h.makeNodeList("nodedataset.csv");
-
-    // for(auto i: h.nodeList){
-    //     std::cout<< i.id << " " << i.longitude << " " << i.latitude <<  std::endl;
-    // }
-
-    // Uncomment lines 15-20 to see the edgedataset being parsed
-    //h.makeEdgeList("edgedataset.csv");
-    // for(auto j: h.edgelist){
-    //     for(auto i: j.second){
-    //         cout<<i.first << " " << i.second <<endl;
-    //     }
-    // }
-    vector<int> path = h.findShortestPath(0,375);
-    // for(int i : path){
-    //     cout << i <<endl;
-    // }
-    vector<Graph::Node> p = h.convert(path);
     h.drawBase();
-    h.draw(p);
-    // h.drawConnection(h.nodeList[7832],h.nodeList[7836], h.red, h.green);
-    // h.zoomIn(h.nodeList[7832],h.nodeList[7836]);
-    // h.drawAllEdges();
-    h.writeTo("myfile.png");
+    vector<int> path;
+    if(argc > 2){
+        int end_index = argc - 1;
+        int start_index = end_index - 1; 
+        path = h.findShortestPath(stoi(argv[start_index]),stoi(argv[end_index]));
+        vector<Graph::Node> p = h.convert(path);
+        h.draw(p);
+    }else{
+        h.drawAllEdges();
+    }
+    if(argc < 2  || use_default){
+        h.writeTo("myfile.png");
+    }else{
+        h.writeTo(argv[1]);
+    }
 
 
     return 0;
