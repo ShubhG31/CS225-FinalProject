@@ -186,6 +186,36 @@ void Graph::draw(vector<Graph::Node> nodes){
     }   
 }
 
+vector<int> Graph::BFS(int first, int second){
+    map<int,bool> visited;
+    map<int,vector<int>>paths;
+    queue<pair<int,double>> q;
+    q.push(pair<int,double>{first,0});
+    paths[first] = vector<int>();
+    while (!q.empty()){
+        pair<int,double> top = q.front();
+        // cout << top.first << endl;
+        if(top.first == second){
+            paths[top.first].push_back(second);
+            return paths[top.first];
+        }
+        q.pop();
+        visited[top.first] = true;
+        auto edges = adjacent(top.first);
+        // i.first is the adjacent node and i.second is the edge length(not the distance from the root)
+        for(pair<int,double> i : edges){
+            // cout << top.first << " adjacent to " << i.first << " at distance " << i.second <<endl;
+            
+            if(!visited[i.first]){
+                q.push(i);
+                paths[i.first] = paths[top.first];
+                paths[i.first].push_back(top.first);
+            }
+        }
+    }
+
+    throw runtime_error("not found");
+}
 
 
 vector<Graph::Node> Graph::convert(vector<int> vect){

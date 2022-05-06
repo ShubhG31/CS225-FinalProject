@@ -5,7 +5,27 @@
 
 using namespace std;
 
-long double error = 0.00001;
+TEST_CASE("Test BFS", ""){
+  string node_data = "CSV_tests/node.csv";
+  string edge_data = "CSV_tests/edge.csv";
+  Graph h(node_data, edge_data);
+  vector<int> sol{0,4};
+  REQUIRE(sol == h.BFS(0,4));
+  vector<int> sol2{0,1,2,3};
+  REQUIRE(sol2 == h.BFS(0,3));
+
+}
+
+TEST_CASE("Test BFS II", ""){
+  string node_data = "CSV_tests/node2.csv";
+  string edge_data = "CSV_tests/edge3.csv";
+  Graph h(node_data, edge_data);
+  vector<int> sol{0,4,5};
+  REQUIRE(sol == h.BFS(0,5));
+  vector<int> sol2{0,1,2,3};
+  REQUIRE(sol2 == h.BFS(0,3));
+
+}
 
 TEST_CASE("Test Shortest Path", "djikstra") {
   string node_data = "CSV_tests/node.csv";
@@ -27,8 +47,8 @@ TEST_CASE("Node Data Parsing", "") {
   vector<Graph::Node> sol{Graph::Node{0,-0.5,-0.08},Graph::Node{1,-10,0},Graph::Node{2 ,0, 0},Graph::Node{3, 0 ,0},Graph::Node{4,0 ,0}};
   for(unsigned long i =0; i<sol.size();i++){
     REQUIRE(sol[i].id == h.nodeList[i].id);
-    REQUIRE(fabs((long double)sol[i].y_ - (long double)h.nodeList[i].y_) < error);
-    REQUIRE(fabs((long double)sol[i].x_ - (long double)h.nodeList[i].x_) < error);
+    REQUIRE(sol[i].y_ == h.nodeList[i].y_);
+    REQUIRE(sol[i].x_ == h.nodeList[i].x_);
   }
 
   node_data = "CSV_tests/node4.csv";

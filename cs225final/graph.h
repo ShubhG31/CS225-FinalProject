@@ -48,12 +48,22 @@ class Graph {
         * Finds the shortest path between nodes by id and Dijkstra's Algorithm
         * @param first id of the first node
         * @param second id of the second node
+        * @return vector of ids in the shortest path
         */
         vector<int> findShortestPath(int first, int second);
 
         /**
+        * Finds the least edge path between nodes by id using BFS
+        * @param first id of the first node
+        * @param second id of the second node
+        * @return vector of ids in the least edges path
+        */
+        vector<int> BFS(int first, int second);
+
+        /**
         * Gets the adjacent edges of a given node
         * @param node id of the given node
+        * @return vector of edges adjacent to a node id
         */
         vector<pair<int,long double> > adjacent(int node);
 
@@ -72,6 +82,7 @@ class Graph {
         /**
         * Converts a path of integers to a path of nodes.
         * @param vect vector of nodes that is the path of nodes
+        * @return vector of nodes convertet from vector of int
         */
         vector<Node> convert(vector<int> vect);
 
