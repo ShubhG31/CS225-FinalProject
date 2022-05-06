@@ -53,9 +53,4 @@ make test
   this folder holds the files related to testing our project. The file checks our Dkjistras Algorithm, Drawing Connections, Zoom in, and BFS. 
    #### Files
    - tests.cpp
-```bash
-./cs225final>dir 
-  
 
-
-```
