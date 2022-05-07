@@ -69,5 +69,8 @@ Used to test the function drawConnection on two nodes whose slope is greater tha
  
  Used to test the function drawConnection on two nodes whose slope is less than -1.
 
-Overall, our project was able to establish the goal of fining the shortest path between two given nodes and through n user provided landmarks with the help of the three algorithms mentioned above. 
+Overall, our project was able to establish the goal of finding the shortest path between two given nodes and through n user provided landmarks with the help of the three algorithms mentioned above. 
+The BFS algorithm helped us find the path which required the least number of edges, while the Dijkstra's algorithm helped us find the shortest distance path between two nodes and also the shortest distance through n landmarks.
+The Bresenhams algorithm helped us visualize these two algorithms by drawing a line between two nodes on the map of San Francisco.
+
  
