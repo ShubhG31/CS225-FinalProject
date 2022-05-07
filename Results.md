@@ -15,10 +15,13 @@ Correctnesss/Testing:
 Tested for almost all edge cases namely, when the shorter path is at a greater distance, when the longer path is at a shorter distance and when the input is out of bounds. Also tested for the case of merging paths to reach the destination node.
 
 ![plot](cs225final/images_report/testbfs.png)
+![plot](cs225final/images_report/t1.png)
 
 ![plot](cs225final/images_report/testbfs2.png)
+![plot](cs225final/images_report/t2.png)
 
 ![plot](cs225final/images_report/testbfs3.png)
+![plot](cs225final/images_report/t3.png)
 
 All three test cases are used to test BFS on the graph depicted beside it.
 
@@ -31,7 +34,10 @@ All three test cases are used to test BFS on the graph depicted beside it.
  The first image is a typical dijkstra's output between two given points. The second image is another type output which is displayed when the two given nodes are close to each other.
  
 ![plot](cs225final/images_report/myfile.png)
+![plot](cs225final/images_report/t1.png)
+![plot](cs225final/images_report/t2.png)
 ![plot](cs225final/images_report/myfile2.png)
+![plot](cs225final/images_report/t3.png)
  
  Correctness/Testing:
  Tested for almost all edge cases namely, when the shorter path is at a greater distance, when the longer path is at a shorter distance and when the input is out of bounds. Also tested for the case of merging paths to reach the destination node.
