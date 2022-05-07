@@ -53,7 +53,7 @@ The output successfully draws a green line from one red node to another.
 drawConnection will also store the colored pixels in a vector for testing purposes.
  
 
-Image - ![plot](cs225final/images_report/Screen Shot 2022-05-06 at 9.34.33 PM.png)
+Image - ![plot](cs225final/images_report/ss1.png)
  
  Used to test the function drawConnection on two nodes whose slope is between 0 and 1.
  
