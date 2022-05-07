@@ -27,6 +27,16 @@ TEST_CASE("Test BFS II", ""){
 
 }
 
+TEST_CASE("Test BFS III", ""){
+  string node_data = "CSV_tests/node2.csv";
+  string edge_data = "CSV_tests/edge4.csv";
+  Graph h(node_data, edge_data);
+  vector<int> sol{0,4,5};
+  REQUIRE(sol == h.BFS(0,5));
+  REQUIRE_THROWS(h.BFS(0,6));
+
+}
+
 TEST_CASE("Test Shortest Path", "djikstra") {
   string node_data = "CSV_tests/node.csv";
   string edge_data = "CSV_tests/edge.csv";
