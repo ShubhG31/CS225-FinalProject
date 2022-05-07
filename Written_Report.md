@@ -8,13 +8,13 @@ The main goal of the project was to map San Francisco and find the shortest dist
 BFS between two nodes on a weighted graph returns the path with the least amount of turns or minimum edges taken
 ## The Output
 In our implementation, the BFS is very similar to dijikstra’s algorithm for nodes that are closer together because there are limited options for the path taken.
+![plot](cs225final/images_report/myfile3.png)
 
-Images - 
 
 Correctnesss/Testing:
 Tested for almost all edge cases namely, when the shorter path is at a greater distance, when the longer path is at a shorter distance and when the input is out of bounds. Also tested for the case of merging paths to reach the destination node.
 
-Images-
+Images- 
 
 All three test cases are used to test BFS on the graph depicted beside it.
 
@@ -26,7 +26,8 @@ All three test cases are used to test BFS on the graph depicted beside it.
  
  The first image is a typical dijkstra's output between two given points. The second image is another type output which is displayed when the two given nodes are close to each other.
  
- Images - 
+![plot](cs225final/images_report/myfile.png)
+![plot](cs225final/images_report/myfile2.png)
  
  Correctness/Testing:
  Tested for almost all edge cases namely, when the shorter path is at a greater distance, when the longer path is at a shorter distance and when the input is out of bounds. Also tested for the case of merging paths to reach the destination node.
@@ -53,9 +54,12 @@ drawConnection will also store the colored pixels in a vector for testing purpos
  
  TestCase1:
 
- Image -
  
  Used to test the function drawConnection on two nodes whose slope is between 0 and 1.
+ 
+ TestCase2:
+ 
+  Used to test the function drawConnection on two nodes whose slope is between -1 and 0.
  
  TestCase3:
 
