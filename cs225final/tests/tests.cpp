@@ -221,6 +221,40 @@ TEST_CASE("drawConnection slope downward less than -1", ""){
   }
 }
 
+TEST_CASE("drawConnection straight line",""){
+  Graph::Node from {0, 0, 7};
+  Graph::Node to {1, 0, 1};
+  vector<pair<int,int>> sol{{0,2}, {0,3}, {0,4}, {0,5},{0,6}};
+  vector<pair<int,int>> t = Graph::testDrawConnection(from,to);
+  for(size_t i = 0; i <sol.size(); ++i){
+    REQUIRE(sol.at(i).first == t.at(i).first);
+    REQUIRE(sol.at(i).second == t.at(i).second);
+  }
+
+  //order doesn't matter
+  t = Graph::testDrawConnection(to,from);
+  for(size_t i = 0; i <sol.size(); ++i){
+    REQUIRE(sol.at(i).first == t.at(i).first);
+    REQUIRE(sol.at(i).second == t.at(i).second);
+  }
+
+  Graph::Node from2 {0, 0, 1};
+  Graph::Node to2 {1, 4, 1};
+  vector<pair<int,int>> sol2{{1,1}, {2,1}, {3,1}};
+  vector<pair<int,int>> t2 = Graph::testDrawConnection(from2,to2);
+  for(size_t i = 0; i <sol2.size(); ++i){
+    REQUIRE(sol2.at(i).first == t2.at(i).first);
+    REQUIRE(sol2.at(i).second == t2.at(i).second);
+  }
+
+  //order doesn't matter
+  t2 = Graph::testDrawConnection(to2,from2);
+  for(size_t i = 0; i <sol2.size(); ++i){
+    REQUIRE(sol2.at(i).first == t2.at(i).first);
+    REQUIRE(sol2.at(i).second == t2.at(i).second);
+  }
+}
+
 TEST_CASE("test zoomIn", ""){
   string node_data = "sanfrancisco/SF.txt";
   string edge_data = "sanfrancisco/SF2.txt";
