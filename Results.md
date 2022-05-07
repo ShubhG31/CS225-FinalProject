@@ -14,7 +14,11 @@ In our implementation, the BFS is very similar to dijikstra’s algorithm for no
 Correctnesss/Testing:
 Tested for almost all edge cases namely, when the shorter path is at a greater distance, when the longer path is at a shorter distance and when the input is out of bounds. Also tested for the case of merging paths to reach the destination node.
 
-Images- 
+![plot](cs225final/images_report/testbfs.png)
+
+![plot](cs225final/images_report/testbfs2.png)
+
+![plot](cs225final/images_report/testbfs3.png)
 
 All three test cases are used to test BFS on the graph depicted beside it.
 
@@ -33,6 +37,11 @@ All three test cases are used to test BFS on the graph depicted beside it.
  Tested for almost all edge cases namely, when the shorter path is at a greater distance, when the longer path is at a shorter distance and when the input is out of bounds. Also tested for the case of merging paths to reach the destination node.
  
  Images - 
+ 
+ ![plot](cs225final/images_report/testd.png)
+ ![plot](cs225final/images_report/testd2.png)
+ ![plot](cs225final/images_report/testd3.png)
+ ![plot](cs225final/images_report/testd4.png)
  
  # 3.Bresenham's algorithm
  
