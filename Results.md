@@ -52,18 +52,18 @@ The output successfully draws a green line from one red node to another.
  Made a function testDrawConnections that keeps track of the pixels that are colored.
 drawConnection will also store the colored pixels in a vector for testing purposes.
  
- TestCase1:
 
+Image -(cs225final/images_report/Screen Shot 2022-05-06 at 9.34.33 PM.png) 
  
  Used to test the function drawConnection on two nodes whose slope is between 0 and 1.
  
- TestCase2:
+Image - 
  
   Used to test the function drawConnection on two nodes whose slope is between -1 and 0.
  
  TestCase3:
 
- Image -
+ Image - 
  
 Used to test the function drawConnection on two nodes whose slope is greater than 1.
 
