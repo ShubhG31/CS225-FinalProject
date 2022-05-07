@@ -152,6 +152,24 @@ vector<int> Graph::findShortestPath(int first, int second){
     throw runtime_error("not found");
 }
 
+vector<int> Graph::findShortestPath(vector<int> nodes){
+    if(nodes.size() == 0){
+        throw runtime_error("empty");
+    }
+    vector<int> to_return;
+    int from = nodes[0];
+    for(size_t i = 1; i < nodes.size(); ++i){
+        int to = nodes[i];
+        vector<int> path = findShortestPath(from,to);
+        to_return.insert(to_return.end(), path.begin(),path.end());
+        if(i + 1 != nodes.size()){
+            to_return.erase(to_return.begin()+(to_return.size() - 1));
+        }
+        from = nodes[i];
+    }
+    return to_return;
+}
+
 vector<pair<int,long double>> Graph::adjacent(int node){
     return edgelist[node];
 }

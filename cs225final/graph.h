@@ -125,6 +125,13 @@ class Graph {
         void setWidth(unsigned w);
 
         /**
+         * finds shortest path through N landmarks taken as vector<int>
+         * @param vector of node ids to find shortest path through
+         * @return the shortest path
+         */
+        vector<int> findShortestPath(vector<int> nodes);
+
+        /**
         * Zoom in two nodes if their distance is less than 500 pixels. 
         * Draws the zoomed portion on the top-right of the image.
         * @param start the node to start the zoom
