@@ -57,19 +57,19 @@ Image - ![plot](cs225final/images_report/ss1.png)
  
  Used to test the function drawConnection on two nodes whose slope is between 0 and 1.
  
-Image - 
+Image - ![plot](cs225final/images_report/ss2.png)
  
   Used to test the function drawConnection on two nodes whose slope is between -1 and 0.
  
  TestCase3:
 
- Image - 
+ Image - ![plot](cs225final/images_report/ss3.png)
  
 Used to test the function drawConnection on two nodes whose slope is greater than 1.
 
  TestCase4:
 
- Image - 
+ Image - ![plot](cs225final/images_report/ss4.png)
  
  Used to test the function drawConnection on two nodes whose slope is less than -1.
 
