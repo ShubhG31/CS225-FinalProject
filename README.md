@@ -1,5 +1,4 @@
-# paulj3-shubhg3-devg2-pat4
-San Francisco Route Planner by bug smashers
+#San Francisco Route Planner 
 
 ## Running Instructions
    To run our project on your machine, you first need to clone this repository on your machine. After doing so, you will need to go into the cs225final file. To run the project, type ./final <filename>, and insert a filename where the output should be named. If ./final is ran without <filename> inserted, the default file is myfile.png.
